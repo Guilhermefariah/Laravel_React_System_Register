@@ -1,5 +1,6 @@
 import PrimaryButton from "@/Components/Button/PrimaryButton";
 import SuccessButton from "@/Components/Button/SuccessButton";
+import WarningButton from "@/Components/Button/WarningButton";
 import { Pagination } from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
@@ -61,9 +62,15 @@ export default function UserIndex({ auth, users }) {
                                     </td>
                                     <td className="px-6 py-2 text-sm text-gray-200 tracking-wider text-center">
                                         <Link href={route("users.show", { id: user.id })}>
-                                            <PrimaryButton className="text-sm">
+                                            <PrimaryButton className="ms-1">
                                                 View
                                             </PrimaryButton>
+                                        </Link>
+
+                                        <Link href={ route("users.edit", { id: user.id })}>
+                                            <WarningButton className="ms-1">
+                                                Edit
+                                            </WarningButton>
                                         </Link>
                                     </td>
                                 </tr>

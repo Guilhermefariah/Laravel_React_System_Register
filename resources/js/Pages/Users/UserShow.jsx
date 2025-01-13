@@ -1,5 +1,5 @@
-import { Pagination } from "@/Components/Pagination";
-import PrimaryButton from "@/Components/Button/PrimaryButton";
+import InfoButton from "@/Components/Button/InfoButton";
+import WarningButton from "@/Components/Button/WarningButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
 
@@ -21,11 +21,16 @@ export default function UserShow({ auth, user }) {
                 <div className="overflow-hidden bg-white shadow-lg sm:rounded-lg dark:bg-gray-800">
                     <div className="flex justify-between items-center m-4 text-white">
                         <h3 className="text-lg">View</h3>
-                        <div className="flex space-x-4">
+                        <div className="flex space-x-1">
                             <Link href={route("users.index")}>
-                                <PrimaryButton className="text-sm">
+                                <InfoButton className="text-sm">
                                     List
-                                </PrimaryButton>
+                                </InfoButton>
+                            </Link>
+                            <Link href={route("users.edit", { user: user.id })}>
+                                <WarningButton className="text-sm">
+                                    Edit
+                                </WarningButton>
                             </Link>
                         </div>
                     </div>

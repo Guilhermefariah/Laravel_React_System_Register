@@ -55,4 +55,31 @@ class UserController extends Controller
         
         return Redirect::route('users.show', ['user' => $user->id])->with('success', 'User created successfully');
     }
+
+    public function edit(User $user): Response
+    {
+        return Inertia::render(('Users/UserEdit'), ['user' => $user]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => "required|string|email|max:255|unique:users,email,{$user->id}",
+        ], [
+            'name.required' => 'Name is required',
+            'name.max' => 'Name must be less than 255 characters',
+            'email.required' => 'Email is required',
+            'email.max' => 'Email must be less than 255 characters',
+            'email.email' => 'Email is invalid',
+            'email.unique' => 'Email already exists',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return Redirect::route('users.show', ['user' => $user->id])->with('success', 'User updated successfully');
+    }
 }
