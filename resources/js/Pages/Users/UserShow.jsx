@@ -1,9 +1,8 @@
-import SuccessButton from "@/Components/Button/SuccessButton";
 import { Pagination } from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-export default function UserIndex({ auth, users }) {
+export default function UserShow({ auth, users }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -18,12 +17,12 @@ export default function UserIndex({ auth, users }) {
             <div className="py-4 max-w-7xl max-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden bg-white shadow-lg sm:rounded-lg dark:bg-gray-800">
                     <div className="flex justify-between items-center m-4 text-white">
-                        <h3 className="text-lg">List</h3>
+                        <h3 className="text-lg">View</h3>
                         <div className="flex space-x-4">
-                            <Link href={route("users.create")}>
-                                <SuccessButton className="text-sm">
-                                    Register
-                                </SuccessButton>
+                            <Link href={route("users.index")}>
+                                <PrimaryButton className="text-sm">
+                                    List
+                                </PrimaryButton>
                             </Link>
                         </div>
                     </div>

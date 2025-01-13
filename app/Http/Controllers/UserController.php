@@ -15,4 +15,15 @@ class UserController extends Controller
 
         return Inertia::render('Users/UserIndex', ['users' => $users]);
     }
+
+    public function show(User $user): Response
+    {
+        return Inertia::render('Users/UserShow', ['user' => $user]);
+    }
+
+
+    public function create(): Response
+    {
+        return Inertia::render('Users/UserCreate');
+    }
 }
