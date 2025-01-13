@@ -1,3 +1,4 @@
+import PrimaryButton from "@/Components/Button/PrimaryButton";
 import SuccessButton from "@/Components/Button/SuccessButton";
 import { Pagination } from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -59,7 +60,11 @@ export default function UserIndex({ auth, users }) {
                                         {user.email}
                                     </td>
                                     <td className="px-6 py-2 text-sm text-gray-200 tracking-wider text-center">
-                                        Actions
+                                        <Link href={route("users.show", { id: user.id })}>
+                                            <PrimaryButton className="text-sm">
+                                                View
+                                            </PrimaryButton>
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}

@@ -1,9 +1,24 @@
-import { Pagination } from "@/Components/Pagination";
 import PrimaryButton from "@/Components/Button/PrimaryButton";
+import SuccessButton from "@/Components/Button/SuccessButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
+
 
 export default function UserCreate({ auth, users }) {
+    const { data, setData, post, processing, errors } = useForm({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("loanding");
+
+        post(route("users.store"));
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -29,7 +44,96 @@ export default function UserCreate({ auth, users }) {
                     </div>
 
                     <div className="bg-gray50 text-sm dark:bg-gray-700 p-4 rounded-lg shadow-md">
-                        #
+                        <form onSubmit={handleSubmit} action="#">
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="name"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Name
+                                </label>
+                                <input
+                                    id="name"
+                                    type="text"
+                                    placeholder="Name User"
+                                    value={data.name}
+                                    onChange={(e) =>
+                                        setData("name", e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                                {errors.name && <span className="text-red-500">{errors.name}</span>}
+                            </div>
+
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="email"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    E-Mail
+                                </label>
+                            </div>
+
+                            <div className="mb-4">
+                                <input
+                                    id="email"
+                                    type="email"
+                                    placeholder="E-Mail User"
+                                    value={data.email}
+                                    onChange={(e) =>
+                                        setData("email", e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                                {errors.email && <span className="text-red-500">{errors.email}</span>}
+                                <label
+                                    htmlFor="password"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Password
+                                </label>
+                            </div>
+
+                            <div className="mb-4">
+                                <input
+                                    id="password"
+                                    type="password"
+                                    autoComplete="password"
+                                    placeholder="Password User"
+                                    value={data.password}
+                                    onChange={(e) => setData("password", e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                                {errors.password && <span className="text-red-500">{errors.password}</span>}
+                                <label
+                                    htmlFor="password_confirmation"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Confirm Password
+                                </label>
+                            </div>
+
+                            <div className="mb-4">
+                                <input
+                                    id="password_confirmation"
+                                    type="password"
+                                    autoComplete="password_confirmation"
+                                    placeholder="Confirm Password"
+                                    value={data.password_confirmation}
+                                    onChange={(e) => setData("password_confirmation", e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                                {errors.password_confirmation && <span className="text-red-500">{errors.password_confirmation}</span>}
+                            </div>
+
+                            <div className="flex justify-end">
+                                <SuccessButton
+                                    type="submit"
+                                    disabled={processing}
+                                    className="text-sm"
+                                >
+                                    Register
+                                </SuccessButton>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

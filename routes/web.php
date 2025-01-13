@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/show-user/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/create-user', [UserController::class, 'create'])->name('users.create');
-    Route::get('/store-user', [UserController::class, 'store'])->name('users.store');
+    Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
 });
 
 require __DIR__.'/auth.php';

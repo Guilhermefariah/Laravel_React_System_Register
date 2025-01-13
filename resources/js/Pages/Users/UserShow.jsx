@@ -1,8 +1,11 @@
 import { Pagination } from "@/Components/Pagination";
+import PrimaryButton from "@/Components/Button/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 
-export default function UserShow({ auth, users }) {
+export default function UserShow({ auth, user }) {
+    const { flash } = usePage().props;
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -27,47 +30,37 @@ export default function UserShow({ auth, users }) {
                         </div>
                     </div>
 
-                    <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead className="bg-gray-50 dark:bg-gray-700">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-gray-200 tracking-wider">
-                                    ID
-                                </th>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-gray-200 tracking-wider">
-                                    Name
-                                </th>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-gray-200 tracking-wider">
-                                    E-Mail
-                                </th>
-                                <th className="px-6 py-3 text-center text-sm font-medium text-gray-200 tracking-wider">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                            {users.data.map((user) => (
-                                <tr key={user.id}>
-                                    <td className="px-6 py-2 text-sm text-gray-200 tracking-wider">
-                                        {user.id}
-                                    </td>
-                                    <td className="px-6 py-2 text-sm text-gray-200 tracking-wider">
-                                        {user.name}
-                                    </td>
-                                    <td className="px-6 py-2 text-sm text-gray-200 tracking-wider">
-                                        {user.email}
-                                    </td>
-                                    <td className="px-6 py-2 text-sm text-gray-200 tracking-wider text-center">
-                                        Actions
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <Pagination
-                        links={users.links}
-                        currentPage={users.current_page}
-                    />
+                    {flash.success && (
+                        <div className="p-4 m-4 text-sm text-green-800 rounded-lg bg-white dark:bg-green-800 dark:text-green-400">
+                            {flash.success}
+                        </div>
+                    )}
+                    <div className="bg-white text-sm dark:bg-gray-800 p-4 shadow-md">
+                        <div className="mb-4">
+                            <p className="text-md font-semibold text-gray-400 dark:text-gray-200">
+                                ID
+                            </p>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                {user.id}
+                            </p>
+                        </div>
+                        <div className="mb-4">
+                            <p className="text-md font-semibold text-gray-400 dark:text-gray-200">
+                                Name
+                            </p>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                {user.name}
+                            </p>
+                        </div>
+                        <div className="mb-4">
+                            <p className="text-md font-semibold text-gray-400 dark:text-gray-200">
+                                Email
+                            </p>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                {user.email}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </AuthenticatedLayout>

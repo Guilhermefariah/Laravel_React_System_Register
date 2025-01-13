@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -11,7 +12,7 @@ class UserController extends Controller
 {
     public function index(): Response 
     {
-        $users = User::paginate(2);
+        $users = User::orderByDesc('id')->paginate(10);
 
         return Inertia::render('Users/UserIndex', ['users' => $users]);
     }
@@ -25,5 +26,33 @@ class UserController extends Controller
     public function create(): Response
     {
         return Inertia::render('Users/UserCreate');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8',
+
+        ], [
+            'name.required' => 'Name is required',
+            'name.max' => 'Name must be less than 255 characters',
+            'email.required' => 'Email is required',
+            'email.max' => 'Email must be less than 255 characters',
+            'email.email' => 'Email is invalid',
+            'email.unique' => 'Email already exists',
+            'password.required' => 'Password is required',
+            'password.confirmed' => 'Password does not match',
+            'password.min' => 'Password must be at least 8 characters',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        
+        return Redirect::route('users.show', ['user' => $user->id])->with('success', 'User created successfully');
     }
 }
