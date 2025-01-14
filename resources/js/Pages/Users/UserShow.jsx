@@ -1,6 +1,6 @@
 import InfoButton from "@/Components/Button/InfoButton";
 import WarningButton from "@/Components/Button/WarningButton";
-import { AlertMessage } from "@/Components/Delete/AlertMenssage/AlertMenssage";
+import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, usePage } from "@inertiajs/react";

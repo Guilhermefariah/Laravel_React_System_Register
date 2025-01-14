@@ -1,7 +1,7 @@
 import PrimaryButton from "@/Components/Button/PrimaryButton";
 import SuccessButton from "@/Components/Button/SuccessButton";
 import WarningButton from "@/Components/Button/WarningButton";
-import { AlertMessage } from "@/Components/Delete/AlertMenssage/AlertMenssage";
+import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import { Pagination } from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";

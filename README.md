@@ -23,7 +23,7 @@ git clone https://github.com/Guilhermefariah/Laravel_React_System_Register.git
 ```
 2. Acesse o diretório do projeto:
 ```bash
-cd seu-repositorio
+cd Laravel_React_System_Register
 ```
 3. Instale as dependências do Laravel:
 ```bash
@@ -55,7 +55,7 @@ php artisan serve
 
 1. Acesse o diretório do projeto:
 ```bash
-cd seu-repositorio
+cd Laravel_React_System_Register
 ```
 2. Instale as dependências do React:
 ```bash
@@ -72,6 +72,8 @@ npm start
 * `php artisan serve`: Inicia o servidor de desenvolvimento do Laravel.
 * `npm start`: Inicia o servidor de desenvolvimento do React.
 * `npm run build`: Cria a versão de produção do aplicativo.
+
+* `php artisan db:seed` : Adiciona usuários padrão ao banco de dados (opcional).
 
 ## Contribuição
 
