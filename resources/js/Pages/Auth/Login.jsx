@@ -92,7 +92,7 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
-            <div className='m-4'>
+            <div className='m-4 text-gray-50'>
                     User: alex@example.com
                     Password: 123456
             </div>
