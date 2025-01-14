@@ -1,11 +1,16 @@
 import PrimaryButton from "@/Components/Button/PrimaryButton";
 import SuccessButton from "@/Components/Button/SuccessButton";
 import WarningButton from "@/Components/Button/WarningButton";
+import { AlertMessage } from "@/Components/Delete/AlertMenssage/AlertMenssage";
+import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import { Pagination } from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 
 export default function UserIndex({ auth, users }) {
+
+    const { flash } = usePage().props;
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -29,6 +34,8 @@ export default function UserIndex({ auth, users }) {
                             </Link>
                         </div>
                     </div>
+
+                    <AlertMessage message={flash}/>
 
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead className="bg-gray-50 dark:bg-gray-700">
@@ -72,6 +79,7 @@ export default function UserIndex({ auth, users }) {
                                                 Edit
                                             </WarningButton>
                                         </Link>
+                                        <ConfirmDelete id={user.id} routeName="users.destroy" />
                                     </td>
                                 </tr>
                             ))}
