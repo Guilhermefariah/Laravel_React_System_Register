@@ -24,11 +24,11 @@ export default function UserIndex({ auth, users }) {
             <div className="py-4 max-w-7xl max-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden bg-white shadow-lg sm:rounded-lg dark:bg-gray-800">
                     <div className="flex justify-between items-center m-4 text-white">
-                        <h3 className="text-lg">List</h3>
+                        <h3 className="text-lg">Ticket de Suporte</h3>
                         <div className="flex space-x-4">
                             <Link href={route("users.create")}>
                                 <SuccessButton className="text-sm">
-                                    Register
+                                    Registrar
                                 </SuccessButton>
                             </Link>
                         </div>
@@ -42,13 +42,13 @@ export default function UserIndex({ auth, users }) {
                                     ID
                                 </th>
                                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-200 tracking-wider">
-                                    Name
+                                    Nome
                                 </th>
                                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-200 tracking-wider">
                                     E-Mail
                                 </th>
                                 <th className="px-6 py-3 text-center text-sm font-medium text-gray-200 tracking-wider">
-                                    Actions
+                                    Ações
                                 </th>
                             </tr>
                         </thead>
@@ -72,7 +72,7 @@ export default function UserIndex({ auth, users }) {
                                             })}
                                         >
                                             <PrimaryButton className="ms-1">
-                                                View
+                                                Visualizar
                                             </PrimaryButton>
                                         </Link>
 
@@ -82,7 +82,7 @@ export default function UserIndex({ auth, users }) {
                                             })}
                                         >
                                             <WarningButton className="ms-1">
-                                                Edit
+                                                Editar
                                             </WarningButton>
                                         </Link>
                                         <ConfirmDelete
