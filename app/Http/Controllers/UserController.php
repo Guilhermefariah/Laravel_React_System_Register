@@ -12,9 +12,9 @@ class UserController extends Controller
 {
     public function index(): Response 
     {
-        $users = User::orderByDesc('id')->paginate(10);
+        $user = auth()->user(); 
 
-        return Inertia::render('Users/UserIndex', ['users' => $users]);
+        return Inertia::render('Users/UserIndex', ['users' => [$user]]);
     }
 
     public function show(User $user): Response
