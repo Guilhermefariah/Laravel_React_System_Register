@@ -30,12 +30,6 @@ export default function Login({ status, canResetPassword }) {
         <GuestLayout>
             <Head title="Log in" />
 
-            {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
-                    {status}
-                </div>
-            )}
-
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="E-mail" />
@@ -79,31 +73,32 @@ export default function Login({ status, canResetPassword }) {
                                 setData("remember", e.target.checked)
                             }
                         />
-                        <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">
+                        <span className="ms-2 text-lg text-gray-600 dark:text-gray-400">
                             Lembre-me
                         </span>
                     </label>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
+                <div className="flex items-center justify-between mt-4">
+                        {canResetPassword && (
+                            <Link
+                                href={route("password.request")}
+                                className="text-lg text-blue-600 hover:underline"
+                            >
+                                Esqueceu sua senha?
+                            </Link>
+                        )}
+
                         <Link
-                            href={route("password.request")}
-                            className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                            href={route("register")}
+                            className="text-lg text-blue-600 hover:underline"
                         >
-                            Esqueceu sua senha?
+                            Criar nova conta
                         </Link>
-                    )}
-                    
-                    <Link
-                        href={route("register")}
-                        className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                    >
-                        Ainda n o tem cadastro?
-                    </Link>
+                    </div>
 
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                <div className="flex items-center justify-end mt-4">
+                    <PrimaryButton className="ms-4 text-center" disabled={processing}>
                         Entrar
                     </PrimaryButton>
                 </div>
