@@ -4,7 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 
-export default function UserCreate({ auth }) {
+export default function TicketCreate({ auth }) {
     const { data, setData, post, processing, errors } = useForm({
         name: "",
         email: "",

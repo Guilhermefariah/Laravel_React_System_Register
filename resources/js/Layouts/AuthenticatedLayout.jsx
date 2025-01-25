@@ -23,8 +23,8 @@ export default function Authenticated({ user, header, children }) {
 
                             <div className="hidden space-x-8 sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("users.index")}
-                                    active={route().current("users.index")}
+                                    href={route("tickets.index")}
+                                    active={route().current("tickets.index")}
                                 >
                                     <h1 className="text-2xl text-gray-700 hover:text-blue-500 transition duration-300">
                                         Início
@@ -125,8 +125,8 @@ export default function Authenticated({ user, header, children }) {
                 >
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            href={route("users.index")}
-                            active={route().current("users.index")}
+                            href={route("tickets.index")}
+                            active={route().current("tickets.index")}
                         >
                             Início
                         </ResponsiveNavLink>
