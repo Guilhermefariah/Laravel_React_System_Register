@@ -1,140 +1,88 @@
-import InfoButton from "@/Components/Button/InfoButton";
-import SuccessButton from "@/Components/Button/SuccessButton";
+import React from "react";
+import { Head } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
-
 
 export default function TicketCreate({ auth }) {
     const { data, setData, post, processing, errors } = useForm({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
+        subject: "",
+        description: "",
+        status: "", 
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("loanding");
-
-        post(route("users.store"));
+        post(route("tickets.store")); 
     };
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Users
-                </h2>
-            }
+            header={<h2 className="font-semibold text-xl text-gray-800">Criar Ticket</h2>}
         >
-            <Head title="users" />
+            <Head title="Criar Ticket" />
 
-            <div className="py-4 max-w-7xl max-auto sm:px-6 lg:px-8">
-                <div className="overflow-hidden bg-white shadow-lg sm:rounded-lg dark:bg-gray-800">
-                    <div className="flex justify-between items-center m-4 text-white">
-                        <h3 className="text-lg">Register</h3>
-                        <div className="flex space-x-4">
-                            <Link href={route("users.index")}>
-                                <InfoButton className="text-sm">
-                                    List
-                                </InfoButton>
-                            </Link>
+            <div className="py-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="bg-white shadow-lg rounded-lg">
+                    <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                        <div>
+                            <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
+                                Assunto
+                            </label>
+                            <input
+                                id="subject"
+                                type="text"
+                                value={data.subject}
+                                onChange={(e) => setData("subject", e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                required
+                            />
+                            {errors.subject && <p className="text-red-500 text-sm">{errors.subject}</p>}
                         </div>
-                    </div>
 
-                    <div className="bg-gray50 text-sm dark:bg-gray-700 p-4 rounded-lg shadow-md">
-                        <form onSubmit={handleSubmit} action="#">
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="name"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Name
-                                </label>
-                                <input
-                                    id="name"
-                                    type="text"
-                                    placeholder="Name User"
-                                    value={data.name}
-                                    onChange={(e) =>
-                                        setData("name", e.target.value)}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                />
-                                {errors.name && <span className="text-red-500">{errors.name}</span>}
-                            </div>
+                        <div>
+                            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                                Descrição
+                            </label>
+                            <textarea
+                                id="description"
+                                value={data.description}
+                                onChange={(e) => setData("description", e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                rows="4"
+                                required
+                            />
+                            {errors.description && (
+                                <p className="text-red-500 text-sm">{errors.description}</p>
+                            )}
+                        </div>
 
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    E-Mail
-                                </label>
-                            </div>
+                        <div>
+                            <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+                                Status
+                            </label>
+                            <input
+                                id="status"
+                                type="text"
+                                value={data.status}
+                                onChange={(e) => setData("status", e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                            >
+                                {errors.status && <p className="text-red-500 text-sm">{errors.status}</p>}
+                            </input>
+                            {errors.status && <p className="text-red-500 text-sm">{errors.status}</p>}
+                        </div>
 
-                            <div className="mb-4">
-                                <input
-                                    id="email"
-                                    type="email"
-                                    placeholder="E-Mail User"
-                                    value={data.email}
-                                    onChange={(e) =>
-                                        setData("email", e.target.value)}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                />
-                                {errors.email && <span className="text-red-500">{errors.email}</span>}
-                                <label
-                                    htmlFor="password"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Password
-                                </label>
-                            </div>
-
-                            <div className="mb-4">
-                                <input
-                                    id="password"
-                                    type="password"
-                                    autoComplete="password"
-                                    placeholder="Password User"
-                                    value={data.password}
-                                    onChange={(e) => setData("password", e.target.value)}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                />
-                                {errors.password && <span className="text-red-500">{errors.password}</span>}
-                                <label
-                                    htmlFor="password_confirmation"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Confirm Password
-                                </label>
-                            </div>
-
-                            <div className="mb-4">
-                                <input
-                                    id="password_confirmation"
-                                    type="password"
-                                    autoComplete="password_confirmation"
-                                    placeholder="Confirm Password"
-                                    value={data.password_confirmation}
-                                    onChange={(e) => setData("password_confirmation", e.target.value)}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                />
-                                {errors.password_confirmation && <span className="text-red-500">{errors.password_confirmation}</span>}
-                            </div>
-
-                            <div className="flex justify-end">
-                                <SuccessButton
-                                    type="submit"
-                                    disabled={processing}
-                                    className="text-sm"
-                                >
-                                    Register
-                                </SuccessButton>
-                            </div>
-                        </form>
-                    </div>
+                        <div className="flex justify-end">
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                            >
+                                Criar Ticket
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </AuthenticatedLayout>

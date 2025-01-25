@@ -18,7 +18,7 @@ class TicketSeeder extends Seeder
                 'subject' => 'Problema de acesso ao sistema',
                 'description' => 'Usuário reportou dificuldades para acessar o sistema devido a erro de autenticação.',
                 'status' => 'Aberto',
-                'id_user' => 1,
+                'id_user' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

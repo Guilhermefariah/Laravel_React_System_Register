@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
-import { FiCheckCircle, FiXCircle } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const AlertMessage = ({ message }) => {
     const isSuccess = message.success ? true : false;
@@ -10,36 +9,58 @@ export const AlertMessage = ({ message }) => {
 
     const alertStyles = isSuccess
         ? {
-              bg: "bg-green-500 dark:bg-green-800",
-              text: "text-green-800 dark:text-green-500",
-              icon: <FiCheckCircle className="w-5 h-5" />,
+              bg: "bg-green-600",
+              text: "text-gray-50",
               content: message.success,
           }
         : {
-              bg: "bg-red-500 dark:bg-red-800",
-              text: "text-red-800 dark:text-red-500",
-              icon: <FiXCircle className="w-5 h-5" />,
+              bg: "bg-red-600",
+              text: "text-red-50",
               content: message.error,
           };
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            window.location.reload();
-        }, 3000);
+    const [progress, setProgress] = useState(100);
 
-        return () => clearTimeout(timer);
+    useEffect(() => {
+        const duration = 1000;
+        const interval = 50;
+        const step = (interval / duration) * 100;
+
+        const timer = setInterval(() => {
+            setProgress((prev) => Math.max(0, prev - step));
+        }, interval);
+
+        const timeout = setTimeout(() => {
+            window.location.reload();
+        }, duration);
+
+        return () => {
+            clearInterval(timer);
+            clearTimeout(timeout);
+        };
     }, [message]);
 
     return (
-        <motion.div
-            className={`p-4 m-4 text-sm rounded-lg max-w-sm ${alertStyles.text} ${alertStyles.bg} flex items-center space-x-4 shadow-lg`}
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 50 }}
-            transition={{ duration: 0.4 }}
-        >
-            <div className="flex-shrink-0">{alertStyles.icon}</div>
-            <div>{alertStyles.content}</div>
-        </motion.div>
+        <AnimatePresence>
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ duration: 0.5 }}
+                className={`fixed top-8 right-3 transform -translate-x-1/2 px-4 py-2 rounded-md shadow-lg ${alertStyles.bg} ${alertStyles.text}`}
+            >
+                {alertStyles.content}
+                <div className="w-full h-1 bg-gray-200 mt-2 rounded overflow-hidden">
+                    <motion.div
+                        initial={{ width: "100%" }}
+                        animate={{ width: `${progress}%` }}
+                        transition={{ duration: 0 }}
+                        className={`h-full ${
+                            isSuccess ? "bg-gray-400" : "bg-red-700"
+                        }`}
+                    />
+                </div>
+            </motion.div>
+        </AnimatePresence>
     );
 };
