@@ -2,6 +2,7 @@ import { useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import DangerButton from "@/Components/Button/DangerButton";
 import { ModalConfirm } from "./ModalConfirm/ModalConfirm";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export const ConfirmDelete = ({ id, routeName }) => {
     const { delete: destroy } = useForm();
@@ -10,7 +11,7 @@ export const ConfirmDelete = ({ id, routeName }) => {
     const handleDelete = () => {
         destroy(route(routeName, id));
         setIsModalOpen(false);
-    }
+    };
 
     return (
         <>
@@ -18,14 +19,14 @@ export const ConfirmDelete = ({ id, routeName }) => {
                 className="ms-1 text-sm"
                 onClick={() => setIsModalOpen(true)}
             >
-                Delete
+                <FaRegTrashAlt  className="size-6" />
             </DangerButton>
             <ModalConfirm
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onConfirm={handleDelete}
-                message="Are you sure you want to delete this item?"
+                message="Você realmente deseja deletar?"
             ></ModalConfirm>
         </>
     );
-}
+};
