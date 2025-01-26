@@ -68,20 +68,19 @@ class TicketController extends Controller
         return Inertia::render('Tickets/TicketEdit', ['ticket' => $ticket]);
     }
 
-    public function update(Request $request, TicketModel $ticket, $id)
+    public function update(Request $request, TicketModel $ticket)
     {
         $validated = $request->validate([
             'assunto' => 'required|string|max:255',
             'descricao' => 'required|string',
             'status' => 'required|in:Aberto,Em andamento,Atrasado,Resolvido',
         ]);
-
-        $ticket = $this->objTicket->findOrFail($id);
-
+    
         $ticket->update($validated);
-
+    
         return Redirect::route('tickets.index')->with('success', 'Ticket atualizado com sucesso!');
     }
+    
 
     public function destroy(TicketModel $ticket, $id)
     {
