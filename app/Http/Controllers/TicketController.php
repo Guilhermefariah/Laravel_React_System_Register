@@ -84,21 +84,12 @@ class TicketController extends Controller
             'subject' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'required|in:Aberto,Em andamento,Atrasado,Resolvido',
-        ], [
-            'subject.required' => 'O campo assunto é obrigatório',
-            'description.required' => 'O campo descricao é obrigatório',
-            'status.required' => 'O campo status é obrigatório e deve ser um dos seguintes: Aberto, Em andamento, Atrasado, Resolvido',
         ]);
-
-        $ticket->update([
-            'subject' => $request->subject,
-            'description' => $request->description,
-            'status' => $request->status,
-        ]);
+    
+        $ticket->update($request->only('subject', 'description', 'status'));
     
         return Redirect::route('tickets.index')->with('success', 'Ticket atualizado com sucesso!');
-    }
-    
+    }    
 
     public function destroy(TicketModel $ticket)
     {

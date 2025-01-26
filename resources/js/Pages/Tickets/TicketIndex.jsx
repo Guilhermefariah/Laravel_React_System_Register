@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Head, Link, usePage, router } from "@inertiajs/react";
+import { Head, Link, usePage, useForm } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import SuccessButton from "@/Components/Button/SuccessButton";
 import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
-import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import PainelStatus from "@/Components/Status/PainelStatus/PainelStatus";
 import TableHead from "@/Components/Table/TableHead/TableHead";
+import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import DateUpdated from "@/Components/Date/DateUpdated/DateUpdated";
 import DateCreated from "@/Components/Date/DateCreated/DateCreated";
 
@@ -13,66 +13,37 @@ export default function TicketIndex() {
     const { auth, tickets } = usePage().props;
     const { flash } = usePage().props;
 
+    const { data, setData, put, errors, processing } = useForm({
+        subject: "",
+        description: "",
+        status: "",
+    });
+
     const [editingTicket, setEditingTicket] = useState(null);
-    const [editSubject, setEditSubject] = useState("");
-    const [editingStatus, setEditingStatus] = useState(null);
-    const [editStatus, setEditStatus] = useState("");
-    const [editingDescription, setEditingDescription] = useState(null);
-    const [editDescription, setEditDescription] = useState("");
+    const [editingDescription, setEditingDescription] = useState(false);
+    const [editingStatus, setEditingStatus] = useState(false);
 
-    const handleEditSubject = (ticket) => {
+    const startEditing = (ticket) => {
         setEditingTicket(ticket.id);
-        setEditSubject(ticket.subject);
-    };
-
-    const saveEditSubject = (ticketId) => {
-        router.put(
-            `/tickets/${ticketId}`,
-            { 
-                subject: editSubject,
-                description: editDescription,
-                status: editStatus      
-            },
-            {
-                onSuccess: () => {
-                    setEditingTicket(null);
-                },
-            }
-        );
-    };
-
-    const handleEditStatus = (ticket) => {
-        setEditingStatus(ticket.id);
-        setEditStatus(ticket.status);
-    };
-
-    const saveEditStatus = (ticketId) => {
-        router.put(
-            `/tickets/${ticketId}`,
-            { status: editStatus },
-            {
-                onSuccess: () => {
-                    setEditingStatus(null);
-                },
-            }
-        );
-    };
-
-    const handleEditDescription = (ticket) => {
         setEditingDescription(ticket.id);
-        setEditDescription(ticket.description);
+        setEditingStatus(ticket.id);
+
+        setData({
+            subject: ticket.subject,
+            description: ticket.description,
+            status: ticket.status,
+        });
     };
 
-    const saveEditDescription = (ticketId) => {
-        router.put(
-            `/tickets/${ticketId}`,
-            { description: editDescription },
-            {
-                onSuccess: () => {
-                    setEditingDescription(null);
-                },
-            }
-        );
+    const saveEdit = (ticketId) => {
+        put(`/tickets/${ticketId}`, {
+            preserveScroll: true,
+            onSuccess: () => {
+                setEditingTicket(null);
+                setEditingDescription(null);
+                setEditingStatus(null);
+            },
+        });
     };
 
     return (
@@ -112,9 +83,10 @@ export default function TicketIndex() {
                                                 <div className="flex items-center space-x-2">
                                                     <input
                                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                                        value={editSubject}
+                                                        value={data.subject}
                                                         onChange={(e) =>
-                                                            setEditSubject(
+                                                            setData(
+                                                                "subject",
                                                                 e.target.value
                                                             )
                                                         }
@@ -122,11 +94,10 @@ export default function TicketIndex() {
                                                     />
                                                     <button
                                                         onClick={() =>
-                                                            saveEditSubject(
-                                                                ticket.id
-                                                            )
+                                                            saveEdit(ticket.id)
                                                         }
                                                         className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
+                                                        disabled={processing}
                                                     >
                                                         Salvar
                                                     </button>
@@ -144,9 +115,7 @@ export default function TicketIndex() {
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        handleEditSubject(
-                                                            ticket
-                                                        )
+                                                        startEditing(ticket)
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
@@ -161,22 +130,27 @@ export default function TicketIndex() {
                                                 <div className="flex flex-col space-y-2">
                                                     <textarea
                                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                                        value={editDescription}
+                                                        value={data.description}
                                                         onChange={(e) =>
-                                                            setEditDescription(
+                                                            setData(
+                                                                "description",
                                                                 e.target.value
                                                             )
                                                         }
                                                         rows={4}
+                                                        autoFocus
                                                     />
                                                     <div className="flex space-x-2">
                                                         <button
                                                             onClick={() =>
-                                                                saveEditDescription(
+                                                                saveEdit(
                                                                     ticket.id
                                                                 )
                                                             }
                                                             className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
+                                                            disabled={
+                                                                processing
+                                                            }
                                                         >
                                                             Salvar
                                                         </button>
@@ -195,9 +169,7 @@ export default function TicketIndex() {
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        handleEditDescription(
-                                                            ticket
-                                                        )
+                                                        startEditing(ticket)
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
@@ -210,21 +182,22 @@ export default function TicketIndex() {
                                             {editingStatus === ticket.id ? (
                                                 <div className="flex items-center space-x-2">
                                                     <input
-                                                        value={editStatus}
+                                                        className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                        value={data.status}
                                                         onChange={(e) =>
-                                                            setEditStatus(
+                                                            setData(
+                                                                "status",
                                                                 e.target.value
                                                             )
                                                         }
-                                                        className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                        autoFocus
                                                     />
                                                     <button
                                                         onClick={() =>
-                                                            saveEditStatus(
-                                                                ticket.id
-                                                            )
+                                                            saveEdit(ticket.id)
                                                         }
                                                         className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
+                                                        disabled={processing}
                                                     >
                                                         Salvar
                                                     </button>
@@ -242,7 +215,7 @@ export default function TicketIndex() {
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        handleEditStatus(ticket)
+                                                        startEditing(ticket)
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
