@@ -4,9 +4,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import SuccessButton from "@/Components/Button/SuccessButton";
 import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
+import PainelStatus from "@/Components/Status/PainelStatus/PainelStatus";
 
 export default function TicketIndex() {
-    const { auth, tickets, openCount, inProgressCount, resolvedCount } =
+    const { auth, tickets } =
         usePage().props;
     const { flash } = usePage().props;
 
@@ -88,76 +89,7 @@ export default function TicketIndex() {
 
                     <AlertMessage message={flash} />
 
-                    <div className="px-6 py-4 bg-gray-50">
-                        <div className="flex justify-between items-center space-x-6">
-                            <div className="w-1/3">
-                                <p className="text-xs font-medium text-gray-500">
-                                    Tickets em aberto
-                                </p>
-                                <div className="h-2 bg-gray-50 rounded-full">
-                                    <div
-                                        className="h-2 bg-blue-500 rounded-full"
-                                        style={{
-                                            width: `${
-                                                (openCount /
-                                                    (openCount +
-                                                        inProgressCount +
-                                                        resolvedCount)) *
-                                                100
-                                            }%`,
-                                        }}
-                                    ></div>
-                                </div>
-                                <p className="mt-1 text-sm font-semibold text-blue-600">
-                                    {openCount}
-                                </p>
-                            </div>
-                            <div className="w-1/3">
-                                <p className="text-xs font-medium text-gray-700">
-                                    Tickets em andamento
-                                </p>
-                                <div className="h-2 bg-gray-200 rounded-full">
-                                    <div
-                                        className="h-2 bg-yellow-500 rounded-full"
-                                        style={{
-                                            width: `${
-                                                (inProgressCount /
-                                                    (openCount +
-                                                        inProgressCount +
-                                                        resolvedCount)) *
-                                                100
-                                            }%`,
-                                        }}
-                                    ></div>
-                                </div>
-                                <p className="mt-1 text-sm font-semibold text-yellow-600">
-                                    {inProgressCount}
-                                </p>
-                            </div>
-                            <div className="w-1/3">
-                                <p className="text-xs font-medium text-gray-700">
-                                    Tickets resolvidos
-                                </p>
-                                <div className="h-2 bg-gray-200 rounded-full">
-                                    <div
-                                        className="h-2 bg-green-500 rounded-full"
-                                        style={{
-                                            width: `${
-                                                (resolvedCount /
-                                                    (openCount +
-                                                        inProgressCount +
-                                                        resolvedCount)) *
-                                                100
-                                            }%`,
-                                        }}
-                                    ></div>
-                                </div>
-                                <p className="mt-1 text-sm font-semibold text-green-600">
-                                    {resolvedCount}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <PainelStatus />
 
                     <div className="relative overflow-x-auto">
                         <table className="min-w-full divide-y divide-gray-200">
@@ -189,21 +121,38 @@ export default function TicketIndex() {
                                     >
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket === ticket.id ? (
-                                                <input
-                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                                    value={editSubject}
-                                                    onChange={(e) =>
-                                                        setEditSubject(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    onBlur={() =>
-                                                        saveEditSubject(
-                                                            ticket.id
-                                                        )
-                                                    }
-                                                    autoFocus
-                                                />
+                                                <div className="flex items-center space-x-2">
+                                                    <input
+                                                        className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                        value={editSubject}
+                                                        onChange={(e) =>
+                                                            setEditSubject(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        autoFocus
+                                                    />
+                                                    <button
+                                                        onClick={() =>
+                                                            saveEditSubject(
+                                                                ticket.id
+                                                            )
+                                                        }
+                                                        className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
+                                                    >
+                                                        Salvar
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            setEditingTicket(
+                                                                null
+                                                            )
+                                                        }
+                                                        className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
+                                                    >
+                                                        Cancelar
+                                                    </button>
+                                                </div>
                                             ) : (
                                                 <span
                                                     onClick={() =>
@@ -217,24 +166,44 @@ export default function TicketIndex() {
                                                 </span>
                                             )}
                                         </td>
+
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingDescription ===
                                             ticket.id ? (
-                                                <textarea
-                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                                    value={editDescription}
-                                                    onChange={(e) =>
-                                                        setEditDescription(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    onBlur={() =>
-                                                        saveEditDescription(
-                                                            ticket.id
-                                                        )
-                                                    }
-                                                    rows={4}
-                                                />
+                                                <div className="flex flex-col space-y-2">
+                                                    <textarea
+                                                        className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                        value={editDescription}
+                                                        onChange={(e) =>
+                                                            setEditDescription(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        rows={4}
+                                                    />
+                                                    <div className="flex space-x-2">
+                                                        <button
+                                                            onClick={() =>
+                                                                saveEditDescription(
+                                                                    ticket.id
+                                                                )
+                                                            }
+                                                            className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
+                                                        >
+                                                            Salvar
+                                                        </button>
+                                                        <button
+                                                            onClick={() =>
+                                                                setEditingDescription(
+                                                                    null
+                                                                )
+                                                            }
+                                                            className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
+                                                        >
+                                                            Cancelar
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             ) : (
                                                 <span
                                                     onClick={() =>
@@ -248,22 +217,40 @@ export default function TicketIndex() {
                                                 </span>
                                             )}
                                         </td>
+
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingStatus === ticket.id ? (
-                                                <input
-                                                    value={editStatus}
-                                                    onChange={(e) =>
-                                                        setEditStatus(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    onBlur={() =>
-                                                        saveEditStatus(
-                                                            ticket.id
-                                                        )
-                                                    }
-                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                                />
+                                                <div className="flex items-center space-x-2">
+                                                    <input
+                                                        value={editStatus}
+                                                        onChange={(e) =>
+                                                            setEditStatus(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                    />
+                                                    <button
+                                                        onClick={() =>
+                                                            saveEditStatus(
+                                                                ticket.id
+                                                            )
+                                                        }
+                                                        className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
+                                                    >
+                                                        Salvar
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            setEditingStatus(
+                                                                null
+                                                            )
+                                                        }
+                                                        className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
+                                                    >
+                                                        Cancelar
+                                                    </button>
+                                                </div>
                                             ) : (
                                                 <span
                                                     onClick={() =>
@@ -275,6 +262,7 @@ export default function TicketIndex() {
                                                 </span>
                                             )}
                                         </td>
+
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {new Date(
                                                 ticket.created_at
