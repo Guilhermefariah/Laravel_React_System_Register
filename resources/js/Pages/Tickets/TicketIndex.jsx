@@ -6,6 +6,8 @@ import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import PainelStatus from "@/Components/Status/PainelStatus/PainelStatus";
 import TableHead from "@/Components/Table/TableHead/TableHead";
+import DateUpdated from "@/Components/Date/DateUpdated/DateUpdated";
+import DateCreated from "@/Components/Date/DateCreated/DateCreated";
 
 export default function TicketIndex() {
     const { auth, tickets } =
@@ -102,6 +104,7 @@ export default function TicketIndex() {
                                         key={ticket.id}
                                         className="hover:bg-gray-50 transition duration-300 ease-in-out"
                                     >
+                                        {/* confirmar ou cancelar */}
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket === ticket.id ? (
                                                 <div className="flex items-center space-x-2">
@@ -244,18 +247,11 @@ export default function TicketIndex() {
                                                     {ticket.status}
                                                 </span>
                                             )}
-                                        </td>
+                                        </td>                       
+                                        <DateCreated ticket={ticket}/>
+                                        
+                                        <DateUpdated ticket={ticket}/>
 
-                                        <td className="px-6 py-2 text-sm text-gray-700">
-                                            {new Date(
-                                                ticket.created_at
-                                            ).toLocaleDateString()}
-                                        </td>
-                                        <td className="px-6 py-2 text-sm text-gray-700">
-                                            {new Date(
-                                                ticket.updated_at
-                                            ).toLocaleDateString()}
-                                        </td>
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             <ConfirmDelete
                                                 routeName="tickets.destroy"
