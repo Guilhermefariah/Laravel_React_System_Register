@@ -100,9 +100,8 @@ class TicketController extends Controller
     }
     
 
-    public function destroy(TicketModel $ticket, $id)
+    public function destroy(TicketModel $ticket)
     {
-        $ticket = $this->objTicket->findOrFail($id);
         $ticket->delete();
 
         return Redirect::route('tickets.index')->with('success', 'Ticket excluído com sucesso!');
