@@ -54,13 +54,12 @@ class TicketController extends Controller
         $request->validate([
             'subject' => 'required|string|max:255|min:02|required',
             'description' => 'required|string|max:255|min:02|required',
-            'status' => 'required|string|max:255|min:02|required',
         ]);
 
         $ticket = TicketModel::create([
             'subject' => $request->subject,
             'description' => $request->description,
-            'status' => $request->status,
+            'status' => 'Aberto',
             'id_user' => auth()->user()->id,
         ]);
 

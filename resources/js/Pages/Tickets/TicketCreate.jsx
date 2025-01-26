@@ -78,32 +78,6 @@ export default function TicketCreate({ auth }) {
                                 </p>
                             )}
                         </div>
-
-                        <div>
-                            <label
-                                htmlFor="status"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                Status
-                            </label>
-                            <input
-                                id="status"
-                                type="text"
-                                placeholder="Status do Ticket"
-                                value={data.status}
-                                onChange={(e) =>
-                                    setData("status", e.target.value)
-                                }
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                required
-                            />
-                            {errors.status && (
-                                <p className="text-red-500 text-sm">
-                                    {errors.status}
-                                </p>
-                            )}
-                        </div>
-
                         <div className="flex justify-end">
                             <button
                                 type="submit"
