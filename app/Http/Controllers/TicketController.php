@@ -23,12 +23,19 @@ class TicketController extends Controller
     public function index()
     {
         $user = auth()->user();
+        
         $tickets = $this->objTicket->where('id_user', $user->id)->orderBy('created_at', 'desc')->get();
-    
+
         $openCount = $this->objTicket->where('id_user', $user->id)->where('status', 'Aberto')->count();
-        $inProgressCount = $this->objTicket->where('id_user', $user->id)->where('status', 'Em andamento')->count();
+
+        $inProgressCount = $this->objTicket->where('id_user', $user->id)
+            ->where(function ($query) {
+                $query->where('status', 'like', '%andamento%');
+            })
+            ->count();
+
         $resolvedCount = $this->objTicket->where('id_user', $user->id)->where('status', 'Resolvido')->count();
-    
+
         return Inertia::render('Tickets/TicketIndex', [
             'user' => $user,
             'tickets' => $tickets,
@@ -64,7 +71,6 @@ class TicketController extends Controller
         ]);
 
         return Redirect::route('tickets.index', ['ticket' => $ticket->id])->with('success', 'Ticket criado com sucesso');
-
     }
 
     public function edit($id): Response
@@ -75,17 +81,18 @@ class TicketController extends Controller
 
     public function update(Request $request, TicketModel $ticket)
     {
-        $request->validate([
-            'subject' => 'required|string|max:255|min:02|required',
-            'description' => 'required|string|max:255|min:02|required',
-            'status' => 'required|string|max:255|min:02|required',
-        ]
-    );
-    
+        $request->validate(
+            [
+                'subject' => 'required|string|max:255|min:02|required',
+                'description' => 'required|string|max:255|min:02|required',
+                'status' => 'required|string|max:255|min:02|required',
+            ]
+        );
+
         $ticket->update($request->only('subject', 'description', 'status'));
-    
+
         return Redirect::route('tickets.index')->with('success', 'Ticket atualizado com sucesso!');
-    }    
+    }
 
     public function destroy(TicketModel $ticket)
     {
