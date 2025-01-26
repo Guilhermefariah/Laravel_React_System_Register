@@ -13,26 +13,26 @@ export default function TicketIndex() {
     const { auth, tickets } = usePage().props;
     const { flash } = usePage().props;
 
-    const { data, setData, put, errors, processing } = useForm({
+    const { data, setData, put, processing } = useForm({
         subject: "",
         description: "",
         status: "",
     });
 
     const [editingTicket, setEditingTicket] = useState(null);
-    const [editingDescription, setEditingDescription] = useState(false);
-    const [editingStatus, setEditingStatus] = useState(false);
 
-    const startEditing = (ticket) => {
-        setEditingTicket(ticket.id);
-        setEditingDescription(ticket.id);
-        setEditingStatus(ticket.id);
+    const startEditing = (ticket, field) => {
+        setEditingTicket({
+            id: ticket.id,
+            field,
+        });
 
-        setData({
+        setData((prev) => ({
+            ...prev,
             subject: ticket.subject,
             description: ticket.description,
             status: ticket.status,
-        });
+        }));
     };
 
     const saveEdit = (ticketId) => {
@@ -40,8 +40,6 @@ export default function TicketIndex() {
             preserveScroll: true,
             onSuccess: () => {
                 setEditingTicket(null);
-                setEditingDescription(null);
-                setEditingStatus(null);
             },
         });
     };
@@ -79,7 +77,8 @@ export default function TicketIndex() {
                                         className="hover:bg-gray-50 transition duration-300 ease-in-out"
                                     >
                                         <td className="px-6 py-2 text-sm text-gray-700">
-                                            {editingTicket === ticket.id ? (
+                                            {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field === "subject" ? (
                                                 <div className="flex items-center space-x-2">
                                                     <input
                                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -115,7 +114,7 @@ export default function TicketIndex() {
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        startEditing(ticket)
+                                                        startEditing(ticket, "subject")
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
@@ -125,9 +124,9 @@ export default function TicketIndex() {
                                         </td>
 
                                         <td className="px-6 py-2 text-sm text-gray-700">
-                                            {editingDescription ===
-                                            ticket.id ? (
-                                                <div className="flex flex-col space-y-2">
+                                            {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field === "description" ? (
+                                                <div className="flex items-center space-x-2">
                                                     <textarea
                                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                                                         value={data.description}
@@ -140,36 +139,28 @@ export default function TicketIndex() {
                                                         rows={4}
                                                         autoFocus
                                                     />
-                                                    <div className="flex space-x-2">
-                                                        <button
-                                                            onClick={() =>
-                                                                saveEdit(
-                                                                    ticket.id
-                                                                )
-                                                            }
-                                                            className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
-                                                            disabled={
-                                                                processing
-                                                            }
-                                                        >
-                                                            Salvar
-                                                        </button>
-                                                        <button
-                                                            onClick={() =>
-                                                                setEditingDescription(
-                                                                    null
-                                                                )
-                                                            }
-                                                            className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
-                                                        >
-                                                            Cancelar
-                                                        </button>
-                                                    </div>
+                                                    <button
+                                                        onClick={() =>
+                                                            saveEdit(ticket.id)
+                                                        }
+                                                        className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
+                                                        disabled={processing}
+                                                    >
+                                                        Salvar
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            setEditingTicket(null)
+                                                        }
+                                                        className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
+                                                    >
+                                                        Cancelar
+                                                    </button>
                                                 </div>
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        startEditing(ticket)
+                                                        startEditing(ticket, "description")
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
@@ -179,7 +170,8 @@ export default function TicketIndex() {
                                         </td>
 
                                         <td className="px-6 py-2 text-sm text-gray-700">
-                                            {editingStatus === ticket.id ? (
+                                            {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field === "status" ? (
                                                 <div className="flex items-center space-x-2">
                                                     <input
                                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -203,9 +195,7 @@ export default function TicketIndex() {
                                                     </button>
                                                     <button
                                                         onClick={() =>
-                                                            setEditingStatus(
-                                                                null
-                                                            )
+                                                            setEditingTicket(null)
                                                         }
                                                         className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
                                                     >
@@ -215,7 +205,7 @@ export default function TicketIndex() {
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        startEditing(ticket)
+                                                        startEditing(ticket, "status")
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
@@ -223,8 +213,8 @@ export default function TicketIndex() {
                                                 </span>
                                             )}
                                         </td>
-                                        <DateCreated ticket={ticket} />
 
+                                        <DateCreated ticket={ticket} />
                                         <DateUpdated ticket={ticket} />
 
                                         <td className="px-6 py-2 text-sm text-gray-700">
