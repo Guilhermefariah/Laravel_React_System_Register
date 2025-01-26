@@ -23,7 +23,7 @@ class TicketController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $tickets = $this->objTicket->where('id_user', $user->id)->get();
+        $tickets = $this->objTicket->where('id_user', $user->id)->orderBy('created_at', 'desc')->get();
     
         $openCount = $this->objTicket->where('id_user', $user->id)->where('status', 'Aberto')->count();
         $inProgressCount = $this->objTicket->where('id_user', $user->id)->where('status', 'Em andamento')->count();
@@ -52,13 +52,9 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subject' => 'required|string|max:255',
-            'description' => 'required|string',
-            'status' => 'required|in:Aberto,Em andamento,Atrasado,Resolvido',
-        ], [
-            'subject.required' => 'O campo assunto é obrigatório',
-            'description.required' => 'O campo descrição é obrigatório',
-            'status.required' => 'O campo status é obrigatório e deve ser um dos seguintes: Aberto, Em andamento, Atrasado, Resolvido',   
+            'subject' => 'required|string|max:255|min:02|required',
+            'description' => 'required|string|max:255|min:02|required',
+            'status' => 'required|string|max:255|min:02|required',
         ]);
 
         $ticket = TicketModel::create([
@@ -81,10 +77,11 @@ class TicketController extends Controller
     public function update(Request $request, TicketModel $ticket)
     {
         $request->validate([
-            'subject' => 'required|string|max:255',
-            'description' => 'required|string',
-            'status' => 'required|in:Aberto,Em andamento,Atrasado,Resolvido',
-        ]);
+            'subject' => 'required|string|max:255|min:02|required',
+            'description' => 'required|string|max:255|min:02|required',
+            'status' => 'required|string|max:255|min:02|required',
+        ]
+    );
     
         $ticket->update($request->only('subject', 'description', 'status'));
     

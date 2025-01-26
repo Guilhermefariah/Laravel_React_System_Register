@@ -7,12 +7,12 @@ export default function TicketCreate({ auth }) {
     const { data, setData, post, processing, errors } = useForm({
         subject: "",
         description: "",
-        status: "", 
+        status: "",
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("tickets.store")); 
+        post(route("tickets.store"));
     };
 
     return (
@@ -30,51 +30,78 @@ export default function TicketCreate({ auth }) {
                 <div className="bg-white shadow-lg rounded-lg">
                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
                         <div>
-                            <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
+                            <label
+                                htmlFor="subject"
+                                className="block text-sm font-medium text-gray-700"
+                            >
                                 Assunto
                             </label>
                             <input
                                 id="subject"
                                 type="text"
                                 value={data.subject}
-                                onChange={(e) => setData("subject", e.target.value)}
+                                placeholder="Assunto do Ticket"
+                                onChange={(e) =>
+                                    setData("subject", e.target.value)
+                                }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                                 required
                             />
-                            {errors.subject && <p className="text-red-500 text-sm">{errors.subject}</p>}
+                            {errors.subject && (
+                                <p className="text-red-500 text-sm">
+                                    {errors.subject}
+                                </p>
+                            )}
                         </div>
 
                         <div>
-                            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                            <label
+                                htmlFor="description"
+                                className="block text-sm font-medium text-gray-700"
+                            >
                                 Descrição
                             </label>
                             <textarea
                                 id="description"
                                 value={data.description}
-                                onChange={(e) => setData("description", e.target.value)}
+                                placeholder="Descrição do Ticket"
+                                onChange={(e) =>
+                                    setData("description", e.target.value)
+                                }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                                 rows="4"
                                 required
                             />
                             {errors.description && (
-                                <p className="text-red-500 text-sm">{errors.description}</p>
+                                <p className="text-red-500 text-sm">
+                                    {errors.description}
+                                </p>
                             )}
                         </div>
 
                         <div>
-                            <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+                            <label
+                                htmlFor="status"
+                                className="block text-sm font-medium text-gray-700"
+                            >
                                 Status
                             </label>
                             <input
                                 id="status"
                                 type="text"
+                                placeholder="Status do Ticket"
                                 value={data.status}
-                                onChange={(e) => setData("status", e.target.value)}
+                                onChange={(e) =>
+                                    setData("status", e.target.value)
+                                }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                            >
-                                {errors.status && <p className="text-red-500 text-sm">{errors.status}</p>}
-                            </input>
-                            {errors.status && <p className="text-red-500 text-sm">{errors.status}</p>}
+                                required
+                            />
+                            {errors.status && (
+                                <p className="text-red-500 text-sm">
+                                    {errors.status}
+                                </p>
+                            )}
                         </div>
 
                         <div className="flex justify-end">

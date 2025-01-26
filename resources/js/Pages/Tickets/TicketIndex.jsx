@@ -8,6 +8,7 @@ import TableHead from "@/Components/Table/TableHead/TableHead";
 import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import DateUpdated from "@/Components/Date/DateUpdated/DateUpdated";
 import DateCreated from "@/Components/Date/DateCreated/DateCreated";
+import Chatbot from "@/Components/ChatBot/ChatBot";
 
 export default function TicketIndex() {
     const { auth, tickets } = usePage().props;
@@ -78,7 +79,8 @@ export default function TicketIndex() {
                                     >
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket?.id === ticket.id &&
-                                            editingTicket?.field === "subject" ? (
+                                            editingTicket?.field ===
+                                                "subject" ? (
                                                 <div className="flex items-center space-x-2">
                                                     <input
                                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -114,7 +116,10 @@ export default function TicketIndex() {
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        startEditing(ticket, "subject")
+                                                        startEditing(
+                                                            ticket,
+                                                            "subject"
+                                                        )
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
@@ -125,7 +130,8 @@ export default function TicketIndex() {
 
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket?.id === ticket.id &&
-                                            editingTicket?.field === "description" ? (
+                                            editingTicket?.field ===
+                                                "description" ? (
                                                 <div className="flex items-center space-x-2">
                                                     <textarea
                                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -150,7 +156,9 @@ export default function TicketIndex() {
                                                     </button>
                                                     <button
                                                         onClick={() =>
-                                                            setEditingTicket(null)
+                                                            setEditingTicket(
+                                                                null
+                                                            )
                                                         }
                                                         className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
                                                     >
@@ -160,7 +168,10 @@ export default function TicketIndex() {
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        startEditing(ticket, "description")
+                                                        startEditing(
+                                                            ticket,
+                                                            "description"
+                                                        )
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
@@ -171,7 +182,8 @@ export default function TicketIndex() {
 
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket?.id === ticket.id &&
-                                            editingTicket?.field === "status" ? (
+                                            editingTicket?.field ===
+                                                "status" ? (
                                                 <div className="flex items-center space-x-2">
                                                     <input
                                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -195,7 +207,9 @@ export default function TicketIndex() {
                                                     </button>
                                                     <button
                                                         onClick={() =>
-                                                            setEditingTicket(null)
+                                                            setEditingTicket(
+                                                                null
+                                                            )
                                                         }
                                                         className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
                                                     >
@@ -205,7 +219,10 @@ export default function TicketIndex() {
                                             ) : (
                                                 <span
                                                     onClick={() =>
-                                                        startEditing(ticket, "status")
+                                                        startEditing(
+                                                            ticket,
+                                                            "status"
+                                                        )
                                                     }
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
@@ -230,6 +247,7 @@ export default function TicketIndex() {
                     </div>
                 </div>
             </div>
+            <Chatbot />
         </AuthenticatedLayout>
     );
 }
