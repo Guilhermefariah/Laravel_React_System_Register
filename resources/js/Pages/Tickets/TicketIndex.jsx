@@ -10,8 +10,7 @@ import DateUpdated from "@/Components/Date/DateUpdated/DateUpdated";
 import DateCreated from "@/Components/Date/DateCreated/DateCreated";
 
 export default function TicketIndex() {
-    const { auth, tickets } =
-        usePage().props;
+    const { auth, tickets } = usePage().props;
     const { flash } = usePage().props;
 
     const [editingTicket, setEditingTicket] = useState(null);
@@ -29,7 +28,11 @@ export default function TicketIndex() {
     const saveEditSubject = (ticketId) => {
         router.put(
             `/tickets/${ticketId}`,
-            { subject: editSubject },
+            { 
+                subject: editSubject,
+                description: editDescription,
+                status: editStatus      
+            },
             {
                 onSuccess: () => {
                     setEditingTicket(null);
@@ -104,7 +107,6 @@ export default function TicketIndex() {
                                         key={ticket.id}
                                         className="hover:bg-gray-50 transition duration-300 ease-in-out"
                                     >
-                                        {/* confirmar ou cancelar */}
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket === ticket.id ? (
                                                 <div className="flex items-center space-x-2">
@@ -247,10 +249,10 @@ export default function TicketIndex() {
                                                     {ticket.status}
                                                 </span>
                                             )}
-                                        </td>                       
-                                        <DateCreated ticket={ticket}/>
-                                        
-                                        <DateUpdated ticket={ticket}/>
+                                        </td>
+                                        <DateCreated ticket={ticket} />
+
+                                        <DateUpdated ticket={ticket} />
 
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             <ConfirmDelete
