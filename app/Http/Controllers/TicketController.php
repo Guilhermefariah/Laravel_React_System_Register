@@ -51,15 +51,25 @@ class TicketController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'assunto' => 'required|string|max:255',
-            'descricao' => 'required|string',
+        $request->validate([
+            'subject' => 'required|string|max:255',
+            'description' => 'required|string',
             'status' => 'required|in:Aberto,Em andamento,Atrasado,Resolvido',
+        ], [
+            'subject.required' => 'O campo assunto é obrigatório',
+            'description.required' => 'O campo descrição é obrigatório',
+            'status.required' => 'O campo status é obrigatório e deve ser um dos seguintes: Aberto, Em andamento, Atrasado, Resolvido',   
         ]);
 
-        $this->objTicket->create($validated);
+        $ticket = TicketModel::create([
+            'subject' => $request->subject,
+            'description' => $request->description,
+            'status' => $request->status,
+            'id_user' => auth()->user()->id,
+        ]);
 
-        return Redirect::route('tickets.index')->with('success', 'Ticket criado com sucesso!');
+        return Redirect::route('tickets.index', ['ticket' => $ticket->id])->with('success', 'Ticket criado com sucesso');
+
     }
 
     public function edit($id): Response
@@ -70,13 +80,21 @@ class TicketController extends Controller
 
     public function update(Request $request, TicketModel $ticket)
     {
-        $validated = $request->validate([
-            'assunto' => 'required|string|max:255',
-            'descricao' => 'required|string',
+        $request->validate([
+            'subject' => 'required|string|max:255',
+            'description' => 'required|string',
             'status' => 'required|in:Aberto,Em andamento,Atrasado,Resolvido',
+        ], [
+            'subject.required' => 'O campo assunto é obrigatório',
+            'description.required' => 'O campo descricao é obrigatório',
+            'status.required' => 'O campo status é obrigatório e deve ser um dos seguintes: Aberto, Em andamento, Atrasado, Resolvido',
         ]);
-    
-        $ticket->update($validated);
+
+        $ticket->update([
+            'subject' => $request->subject,
+            'description' => $request->description,
+            'status' => $request->status,
+        ]);
     
         return Redirect::route('tickets.index')->with('success', 'Ticket atualizado com sucesso!');
     }

@@ -77,22 +77,86 @@ export default function TicketIndex() {
                 </h2>
             }
         >
+            <Head title="Tickets" />
             <div className="py-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="overflow-hidden bg-white shadow-lg sm:rounded-lg">
+                <div className="overflow-hidden bg-gray-50 shadow-xl sm:rounded-lg">
                     <div className="flex justify-end items-center m-4">
                         <Link href={route("tickets.create")}>
-                            <SuccessButton className="text-sm">
-                                Criar Novo Ticket
-                            </SuccessButton>
+                            <SuccessButton>Novo Ticket</SuccessButton>
                         </Link>
                     </div>
 
                     <AlertMessage message={flash} />
 
-                    <div className="px-4 py-2 bg-gray-100 border-b text-sm text-gray-700">
-                        <p>Tickets em aberto: {openCount}</p>
-                        <p>Tickets em andamento: {inProgressCount}</p>
-                        <p>Tickets resolvidos: {resolvedCount}</p>
+                    <div className="px-6 py-4 bg-gray-50">
+                        <div className="flex justify-between items-center space-x-6">
+                            <div className="w-1/3">
+                                <p className="text-xs font-medium text-gray-500">
+                                    Tickets em aberto
+                                </p>
+                                <div className="h-2 bg-gray-50 rounded-full">
+                                    <div
+                                        className="h-2 bg-blue-500 rounded-full"
+                                        style={{
+                                            width: `${
+                                                (openCount /
+                                                    (openCount +
+                                                        inProgressCount +
+                                                        resolvedCount)) *
+                                                100
+                                            }%`,
+                                        }}
+                                    ></div>
+                                </div>
+                                <p className="mt-1 text-sm font-semibold text-blue-600">
+                                    {openCount}
+                                </p>
+                            </div>
+                            <div className="w-1/3">
+                                <p className="text-xs font-medium text-gray-700">
+                                    Tickets em andamento
+                                </p>
+                                <div className="h-2 bg-gray-200 rounded-full">
+                                    <div
+                                        className="h-2 bg-yellow-500 rounded-full"
+                                        style={{
+                                            width: `${
+                                                (inProgressCount /
+                                                    (openCount +
+                                                        inProgressCount +
+                                                        resolvedCount)) *
+                                                100
+                                            }%`,
+                                        }}
+                                    ></div>
+                                </div>
+                                <p className="mt-1 text-sm font-semibold text-yellow-600">
+                                    {inProgressCount}
+                                </p>
+                            </div>
+                            <div className="w-1/3">
+                                <p className="text-xs font-medium text-gray-700">
+                                    Tickets resolvidos
+                                </p>
+                                <div className="h-2 bg-gray-200 rounded-full">
+                                    <div
+                                        className="h-2 bg-green-500 rounded-full"
+                                        style={{
+                                            width: `${
+                                                (resolvedCount /
+                                                    (openCount +
+                                                        inProgressCount +
+                                                        resolvedCount)) *
+                                                100
+                                            }%`,
+                                        }}
+                                    ></div>
+                                </div>
+                                <p className="mt-1 text-sm font-semibold text-green-600">
+                                    {resolvedCount}
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="relative overflow-x-auto">
@@ -121,12 +185,12 @@ export default function TicketIndex() {
                                 {tickets.map((ticket) => (
                                     <tr
                                         key={ticket.id}
-                                        className="hover:bg-gray-50 transition duration-200"
+                                        className="hover:bg-gray-50 transition duration-300 ease-in-out"
                                     >
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket === ticket.id ? (
                                                 <input
-                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                                                     value={editSubject}
                                                     onChange={(e) =>
                                                         setEditSubject(
@@ -147,7 +211,7 @@ export default function TicketIndex() {
                                                             ticket
                                                         )
                                                     }
-                                                    className="cursor-pointer text-gray-700 hover:text-blue-600"
+                                                    className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
                                                     {ticket.subject}
                                                 </span>
@@ -157,7 +221,7 @@ export default function TicketIndex() {
                                             {editingDescription ===
                                             ticket.id ? (
                                                 <textarea
-                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                                                     value={editDescription}
                                                     onChange={(e) =>
                                                         setEditDescription(
@@ -178,7 +242,7 @@ export default function TicketIndex() {
                                                             ticket
                                                         )
                                                     }
-                                                    className="cursor-pointer text-gray-700 hover:text-blue-600"
+                                                    className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
                                                     {ticket.description}
                                                 </span>
@@ -198,14 +262,14 @@ export default function TicketIndex() {
                                                             ticket.id
                                                         )
                                                     }
-                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                                                 />
                                             ) : (
                                                 <span
                                                     onClick={() =>
                                                         handleEditStatus(ticket)
                                                     }
-                                                    className="cursor-pointer text-gray-700 hover:text-blue-600"
+                                                    className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
                                                     {ticket.status}
                                                 </span>
@@ -221,7 +285,7 @@ export default function TicketIndex() {
                                                 ticket.updated_at
                                             ).toLocaleDateString()}
                                         </td>
-                                        <td className="px-6 py-2 text-sm text-gray-700 flex justify-center items-center">
+                                        <td className="px-6 py-2 text-sm text-gray-700">
                                             <ConfirmDelete
                                                 routeName="tickets.destroy"
                                                 id={ticket.id}

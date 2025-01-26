@@ -18,7 +18,11 @@ export default function TicketCreate({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800">Criar Ticket</h2>}
+            header={
+                <h2 className="font-semibold text-xl text-gray-50 leading-tight">
+                    Tickets de Suporte
+                </h2>
+            }
         >
             <Head title="Criar Ticket" />
 

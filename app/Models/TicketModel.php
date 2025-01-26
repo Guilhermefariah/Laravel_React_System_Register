@@ -11,6 +11,13 @@ class TicketModel extends Model
 
     protected $table = 'ticket';
 
+    protected $fillable = [
+        'subject',
+        'description',
+        'status',
+        'id_user',
+    ];
+
     public function relUsers()
     {
         return $this->hasOne('App\Models\User', 'id', 'id_user');
