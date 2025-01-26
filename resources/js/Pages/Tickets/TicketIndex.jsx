@@ -5,6 +5,7 @@ import SuccessButton from "@/Components/Button/SuccessButton";
 import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import PainelStatus from "@/Components/Status/PainelStatus/PainelStatus";
+import TableHead from "@/Components/Table/TableHead/TableHead";
 
 export default function TicketIndex() {
     const { auth, tickets } =
@@ -93,25 +94,7 @@ export default function TicketIndex() {
 
                     <div className="relative overflow-x-auto">
                         <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-                                        Assunto
-                                    </th>
-                                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-                                        Descrição
-                                    </th>
-                                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-                                        Status
-                                    </th>
-                                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-                                        Data de Criação
-                                    </th>
-                                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-                                        Última Atualização
-                                    </th>
-                                </tr>
-                            </thead>
+                            <TableHead />
 
                             <tbody className="bg-white divide-y divide-gray-200">
                                 {tickets.map((ticket) => (
