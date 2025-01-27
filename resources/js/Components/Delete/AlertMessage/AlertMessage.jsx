@@ -22,7 +22,7 @@ export const AlertMessage = ({ message }) => {
     const [progress, setProgress] = useState(100);
 
     useEffect(() => {
-        const duration = 1000;
+        const duration = 500;
         const interval = 50;
         const step = (interval / duration) * 100;
 
