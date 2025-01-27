@@ -23,10 +23,14 @@ class TicketController extends Controller
     public function index()
     {
         $user = auth()->user();
-        
+
         $tickets = $this->objTicket->where('id_user', $user->id)->orderBy('created_at', 'desc')->get();
 
-        $openCount = $this->objTicket->where('id_user', $user->id)->where('status', 'Aberto')->count();
+        $openCount = $this->objTicket->where('id_user', $user->id)
+            ->where(function ($query) {
+                $query->where('status', 'like', '%aberto%');
+            })
+            ->count();
 
         $inProgressCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
@@ -34,7 +38,10 @@ class TicketController extends Controller
             })
             ->count();
 
-        $resolvedCount = $this->objTicket->where('id_user', $user->id)->where('status', 'Resolvido')->count();
+        $resolvedCount = $this->objTicket->where('id_user', $user->id)
+            ->where(function ($query) {
+                $query->where('status', 'like', '%resolvido%');
+            })->count();
 
         return Inertia::render('Tickets/TicketIndex', [
             'user' => $user,
