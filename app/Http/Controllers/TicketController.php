@@ -28,19 +28,19 @@ class TicketController extends Controller
 
         $openCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
-                $query->where('status', 'like', '%aberto%');
+                $query->where('status', 'like', '%aberto%', 'or', 'status', 'like', '%Aberto%', 'or', 'status', 'like', '%aberta%', 'or', 'status', 'like', '%Aberta%');
             })
             ->count();
 
         $inProgressCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
-                $query->where('status', 'like', '%andamento%');
+                $query->where('status', 'like', '%andamento%', 'or', 'status', 'like', '%em andamento%', 'or', 'status', 'like', '%pendente%', 'or', 'status', 'like', '%Andamento%');
             })
             ->count();
 
         $resolvedCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
-                $query->where('status', 'like', '%resolvido%');
+                $query->where('status', 'like', '%resolvido%', 'or', 'status', 'like', '%Resolvido%', 'or', 'status', 'like', '%fechado%', 'or', 'status', 'like', '%Fechado%');
             })->count();
 
         return Inertia::render('Tickets/TicketIndex', [
