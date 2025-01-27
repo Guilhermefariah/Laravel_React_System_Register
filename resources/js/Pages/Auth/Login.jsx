@@ -102,7 +102,6 @@ export default function Login({ status, canResetPassword }) {
                         Entrar
                     </PrimaryButton>
                 </div>
-                <p className="text-white"> alex@example.com 123456</p>
             </form>
         </GuestLayout>
     );
