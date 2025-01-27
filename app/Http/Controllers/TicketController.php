@@ -28,19 +28,34 @@ class TicketController extends Controller
 
         $openCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
-                $query->where('status', 'like', '%aberto%', 'or', 'status', 'like', '%Aberto%', 'or', 'status', 'like', '%aberta%', 'or', 'status', 'like', '%Aberta%');
+                $query->where('status', 'like', '%Aberto%')
+                ->orWhere('status', 'like', '%aberto%')
+                ->orWhere('status', 'like', '%aberta%')
+                ->orWhere('status', 'like', '%Aberto%')
+                ->orWhere('status', 'like', '%novo%')
+                ->orWhere('status', 'like', '%Novo%');
             })
             ->count();
 
         $inProgressCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
-                $query->where('status', 'like', '%andamento%', 'or', 'status', 'like', '%em andamento%', 'or', 'status', 'like', '%pendente%', 'or', 'status', 'like', '%Andamento%');
+                $query->where('status', 'like', '%andamento%')
+                ->orWhere('status', 'like', '%Andamento%')
+                ->orWhere('status', 'like', '%Em andamento%')
+                ->orWhere('status', 'like', '%em andamento%')
+                ->orWhere('status', 'like', '%faltando%')
+                ->orWhere('status', 'like', '%Faltando%');
             })
             ->count();
 
         $resolvedCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
-                $query->where('status', 'like', '%resolvido%', 'or', 'status', 'like', '%Resolvido%', 'or', 'status', 'like', '%fechado%', 'or', 'status', 'like', '%Fechado%');
+                $query->where('status', 'like', '%resolvido%')
+                ->orWhere('status', 'like', '%Resolvido%')
+                ->orWhere('status', 'like', '%resolvida%')
+                ->orWhere('status', 'like', '%Resolvido%')
+                ->orWhere('status', 'like', '%pronto%')
+                ->orWhere('status', 'like', '%Pronto%');
             })->count();
 
         return Inertia::render('Tickets/TicketIndex', [
