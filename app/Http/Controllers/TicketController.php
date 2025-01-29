@@ -89,7 +89,6 @@ class TicketController extends Controller
             'subject' => $request->subject,
             'description' => $request->description,
             'status' => 'Aberto',
-            'id_user' => auth()->user()->id,
         ]);
 
         return Redirect::route('tickets.index', ['ticket' => $ticket->id])->with('success', 'Ticket criado com sucesso');

@@ -3,7 +3,7 @@ import { Head } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-export default function TicketCreate({ auth }) {
+export default function TicketCreate() {
     const { data, setData, post, processing, errors } = useForm({
         subject: "",
         description: "",
@@ -12,15 +12,14 @@ export default function TicketCreate({ auth }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("tickets.store"));
+        post(route("login"));
     };
 
     return (
         <AuthenticatedLayout
-            user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-50 leading-tight">
-                    Tickets de Suporte
+                    Ticket
                 </h2>
             }
         >

@@ -50,19 +50,13 @@ export default function TicketIndex() {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-50 leading-tight">
-                    Tickets de Suporte
+                    Suporte
                 </h2>
             }
         >
             <Head title="Tickets" />
             <div className="py-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden bg-gray-50 shadow-xl sm:rounded-lg">
-                    <div className="flex justify-end items-center m-4">
-                        <Link href={route("tickets.create")}>
-                            <SuccessButton>Novo Ticket</SuccessButton>
-                        </Link>
-                    </div>
-
                     <AlertMessage message={flash} />
 
                     <PainelStatus />
