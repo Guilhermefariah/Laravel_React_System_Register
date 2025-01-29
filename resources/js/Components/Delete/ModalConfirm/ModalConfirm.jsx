@@ -6,9 +6,9 @@ export const ModalConfirm = ({ isOpen, onClose, onConfirm, message }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-gray-200 p-6 rounded-lg shadow-md w-1/3">
+            <div className="bg-gray-200 p-6 rounded-lg shadow-md w-11/12 sm:w-1/3 md:w-1/4">
                 <div className="flex justify-center mb-4">
-                <FaRegTrashAlt  className="size-10 text-red-600" />
+                    <FaRegTrashAlt className="text-4xl text-red-600" />
                 </div>
                 <p className="mb-4 text-gray-700 text-lg text-center">
                     {message}
@@ -31,5 +31,3 @@ export const ModalConfirm = ({ isOpen, onClose, onConfirm, message }) => {
         </div>
     );
 }
-
-
