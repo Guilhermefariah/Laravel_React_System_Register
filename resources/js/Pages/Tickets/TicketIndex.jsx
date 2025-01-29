@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Head, Link, usePage, useForm } from "@inertiajs/react";
+import { Head, usePage, useForm } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import SuccessButton from "@/Components/Button/SuccessButton";
 import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 import PainelStatus from "@/Components/Status/PainelStatus/PainelStatus";
 import TableHead from "@/Components/Table/TableHead/TableHead";
@@ -11,13 +10,15 @@ import DateCreated from "@/Components/Date/DateCreated/DateCreated";
 import Chatbot from "@/Components/ChatBot/ChatBot";
 
 export default function TicketIndex() {
-    const { auth, tickets } = usePage().props;
-    const { flash } = usePage().props;
+    const { auth, tickets, flash } = usePage().props;
 
     const { data, setData, put, processing } = useForm({
+        name: "",
+        email: "",
+        phone: "",
+        status: "",
         subject: "",
         description: "",
-        status: "",
     });
 
     const [editingTicket, setEditingTicket] = useState(null);
@@ -30,9 +31,12 @@ export default function TicketIndex() {
 
         setData((prev) => ({
             ...prev,
+            name: ticket.name,
+            email: ticket.email,
+            phone: ticket.phone,
+            status: ticket.status,
             subject: ticket.subject,
             description: ticket.description,
-            status: ticket.status,
         }));
     };
 
@@ -73,11 +77,119 @@ export default function TicketIndex() {
                                     >
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field === "name" ? (
+                                                <input
+                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                    value={data.name}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "name",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    autoFocus
+                                                />
+                                            ) : (
+                                                ticket.name
+                                            )}
+                                        </td>
+
+                                        <td className="px-6 py-2 text-sm text-gray-700">
+                                            {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field === "email" ? (
+                                                <input
+                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                    value={data.email}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "email",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    autoFocus
+                                                />
+                                            ) : (
+                                                ticket.email
+                                            )}
+                                        </td>
+
+                                        <td className="px-6 py-2 text-sm text-gray-700">
+                                            {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field === "phone" ? (
+                                                <input
+                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                    value={data.phone}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "phone",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    autoFocus
+                                                />
+                                            ) : (
+                                                ticket.phone
+                                            )}
+                                        </td>
+
+                                        <td className="px-6 py-2 text-sm text-gray-700">
+                                            {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field ===
+                                                "status" ? (
+                                                <div className="flex items-center space-x-2">
+                                                    <input
+                                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                        value={data.status}
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                "status",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        autoFocus
+                                                    />
+                                                    <button
+                                                        onClick={() =>
+                                                            saveEdit(ticket.id)
+                                                        }
+                                                        className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
+                                                        disabled={processing}
+                                                    >
+                                                        Salvar
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            setEditingTicket(
+                                                                null
+                                                            )
+                                                        }
+                                                        className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
+                                                    >
+                                                        Cancelar
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <span
+                                                    onClick={() =>
+                                                        startEditing(
+                                                            ticket,
+                                                            "status"
+                                                        )
+                                                    }
+                                                    className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
+                                                >
+                                                    {ticket.status}
+                                                </span>
+                                            )}
+                                        </td>
+
+                                        <td className="px-6 py-2 text-sm text-gray-700">
+                                            {editingTicket?.id === ticket.id &&
                                             editingTicket?.field ===
                                                 "subject" ? (
                                                 <div className="flex items-center space-x-2">
                                                     <input
-                                                        className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                                                         value={data.subject}
                                                         onChange={(e) =>
                                                             setData(
@@ -128,7 +240,7 @@ export default function TicketIndex() {
                                                 "description" ? (
                                                 <div className="flex items-center space-x-2">
                                                     <textarea
-                                                        className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                                                         value={data.description}
                                                         onChange={(e) =>
                                                             setData(
@@ -170,57 +282,6 @@ export default function TicketIndex() {
                                                     className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
                                                 >
                                                     {ticket.description}
-                                                </span>
-                                            )}
-                                        </td>
-
-                                        <td className="px-6 py-2 text-sm text-gray-700">
-                                            {editingTicket?.id === ticket.id &&
-                                            editingTicket?.field ===
-                                                "status" ? (
-                                                <div className="flex items-center space-x-2">
-                                                    <input
-                                                        className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                                        value={data.status}
-                                                        onChange={(e) =>
-                                                            setData(
-                                                                "status",
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        autoFocus
-                                                    />
-                                                    <button
-                                                        onClick={() =>
-                                                            saveEdit(ticket.id)
-                                                        }
-                                                        className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200"
-                                                        disabled={processing}
-                                                    >
-                                                        Salvar
-                                                    </button>
-                                                    <button
-                                                        onClick={() =>
-                                                            setEditingTicket(
-                                                                null
-                                                            )
-                                                        }
-                                                        className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
-                                                    >
-                                                        Cancelar
-                                                    </button>
-                                                </div>
-                                            ) : (
-                                                <span
-                                                    onClick={() =>
-                                                        startEditing(
-                                                            ticket,
-                                                            "status"
-                                                        )
-                                                    }
-                                                    className="cursor-pointer text-gray-700 hover:text-blue-600 transition duration-200"
-                                                >
-                                                    {ticket.status}
                                                 </span>
                                             )}
                                         </td>

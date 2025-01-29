@@ -81,17 +81,24 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'name' => 'required|string|max:255|min:02|required',
+            'email' => 'required|string|max:255|min:02|required',
+            'phone' => 'required|string|max:255|min:02|required',
             'subject' => 'required|string|max:255|min:02|required',
             'description' => 'required|string|max:255|min:02|required',
         ]);
 
         $ticket = TicketModel::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'status' => 'Aberto',
             'subject' => $request->subject,
             'description' => $request->description,
-            'status' => 'Aberto',
+            'id_user' => auth()->user()->id
         ]);
 
-        return Redirect::route('tickets.index', ['ticket' => $ticket->id])->with('success', 'Ticket criado com sucesso');
+        return Redirect::route('tickets.create', ['ticket' => $ticket->id])->with('success', 'Ticket criado com sucesso');
     }
 
     public function edit($id): Response
@@ -104,9 +111,12 @@ class TicketController extends Controller
     {
         $request->validate(
             [
+                'name' => 'required|string|max:255|min:02|required',
+                'email' => 'required|string|max:255|min:02|required',
+                'phone' => 'required|string|max:255|min:02|required',
+                'status' => 'required|string|max:255|min:02|required',
                 'subject' => 'required|string|max:255|min:02|required',
                 'description' => 'required|string|max:255|min:02|required',
-                'status' => 'required|string|max:255|min:02|required',
             ]
         );
 
