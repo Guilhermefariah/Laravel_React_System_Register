@@ -5,6 +5,9 @@ export default function TableHead() {
         <thead className="bg-gray-50">
             <tr>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                    ID
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
                     Nome
                 </th>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">

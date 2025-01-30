@@ -13,6 +13,7 @@ export default function TicketIndex() {
     const { auth, tickets, flash } = usePage().props;
 
     const { data, setData, put, processing } = useForm({
+        id: "",
         name: "",
         email: "",
         phone: "",
@@ -31,6 +32,7 @@ export default function TicketIndex() {
 
         setData((prev) => ({
             ...prev,
+            id: ticket.id,
             name: ticket.name,
             email: ticket.email,
             phone: ticket.phone,
@@ -75,6 +77,24 @@ export default function TicketIndex() {
                                         key={ticket.id}
                                         className="hover:bg-gray-50 transition duration-300 ease-in-out"
                                     >
+                                        <td className="px-6 py-2 text-sm text-gray-700">
+                                            {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field === "id" ? (
+                                                <input
+                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                    value={data.id}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "id",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    autoFocus
+                                                />
+                                            ) : (
+                                                ticket.id
+                                            )}
+                                        </td>
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket?.id === ticket.id &&
                                             editingTicket?.field === "name" ? (
