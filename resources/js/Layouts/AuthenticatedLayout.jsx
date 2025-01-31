@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 
@@ -12,32 +11,11 @@ export default function Authenticated({ header, children }) {
         <div className="min-h-screen bg-gray-50">
             <nav className="bg-gray-50 shadow-lg">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-blue-600 hover:text-blue-700 transition duration-300" />
-                                </Link>
-                            </div>
-
-                            <div className="hidden space-x-8 sm:ms-10 sm:flex">
-                            <NavLink
-                                    href={route("tickets.create")}
-                                    active={route().current("tickets.create")}
-                                >
-                                    <h1 className="text-2xl text-gray-700 hover:text-blue-500 transition duration-300">
-                                        Vendedor
-                                    </h1>
-                                </NavLink>
-                                <NavLink
-                                    href={route("tickets.index")}
-                                    active={route().current("tickets.index")}
-                                >
-                                    <h1 className="text-2xl text-gray-700 hover:text-blue-500 transition duration-300">
-                                        Suporte
-                                    </h1>
-                                </NavLink>
-                            </div>
+                    <div className="flex justify-between items-center h-16">
+                        <div className="flex items-center">
+                            <Link href="/">
+                                <ApplicationLogo className="block h-9 w-auto fill-current text-blue-600 hover:text-blue-700 transition duration-300" />
+                            </Link>
                         </div>
 
 
@@ -99,21 +77,6 @@ export default function Authenticated({ header, children }) {
                         </ResponsiveNavLink>
                     </div>
 
-                    <div className="pt-4 pb-1 border-t border-blue-600">
-
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
-                                Perfil
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                method="post"
-                                href={route("logout")}
-                                as="button"
-                            >
-                                Sair
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
                 </div>
             </nav>
 
