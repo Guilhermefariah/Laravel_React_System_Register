@@ -1,4 +1,4 @@
-# Projeto de Autenticação com Laravel e React 
+# Projeto de Ticket para Suporte com Laravel e React 
 
 Este projeto é uma aplicação de autenticação utilizando Laravel como backend e React como frontend.
 
