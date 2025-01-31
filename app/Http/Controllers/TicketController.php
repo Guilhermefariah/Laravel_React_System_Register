@@ -29,33 +29,33 @@ class TicketController extends Controller
         $openCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
                 $query->where('status', 'like', '%Aberto%')
-                ->orWhere('status', 'like', '%aberto%')
-                ->orWhere('status', 'like', '%aberta%')
-                ->orWhere('status', 'like', '%Aberto%')
-                ->orWhere('status', 'like', '%novo%')
-                ->orWhere('status', 'like', '%Novo%');
+                    ->orWhere('status', 'like', '%aberto%')
+                    ->orWhere('status', 'like', '%aberta%')
+                    ->orWhere('status', 'like', '%Aberto%')
+                    ->orWhere('status', 'like', '%novo%')
+                    ->orWhere('status', 'like', '%Novo%');
             })
             ->count();
 
         $inProgressCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
                 $query->where('status', 'like', '%andamento%')
-                ->orWhere('status', 'like', '%Andamento%')
-                ->orWhere('status', 'like', '%Em andamento%')
-                ->orWhere('status', 'like', '%em andamento%')
-                ->orWhere('status', 'like', '%faltando%')
-                ->orWhere('status', 'like', '%Faltando%');
+                    ->orWhere('status', 'like', '%Andamento%')
+                    ->orWhere('status', 'like', '%Em andamento%')
+                    ->orWhere('status', 'like', '%em andamento%')
+                    ->orWhere('status', 'like', '%faltando%')
+                    ->orWhere('status', 'like', '%Faltando%');
             })
             ->count();
 
         $resolvedCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
                 $query->where('status', 'like', '%resolvido%')
-                ->orWhere('status', 'like', '%Resolvido%')
-                ->orWhere('status', 'like', '%resolvida%')
-                ->orWhere('status', 'like', '%Resolvido%')
-                ->orWhere('status', 'like', '%pronto%')
-                ->orWhere('status', 'like', '%Pronto%');
+                    ->orWhere('status', 'like', '%Resolvido%')
+                    ->orWhere('status', 'like', '%resolvida%')
+                    ->orWhere('status', 'like', '%Resolvido%')
+                    ->orWhere('status', 'like', '%pronto%')
+                    ->orWhere('status', 'like', '%Pronto%');
             })->count();
 
         return Inertia::render('Tickets/TicketIndex', [
@@ -75,24 +75,23 @@ class TicketController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Tickets/TicketCreate');
+        $users = User::all();
+
+        return Inertia::render('Tickets/TicketCreate', [
+            'users' => $users,
+        ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|min:02|required',
-            'email' => 'required|string|max:255|min:02|required',
-            'phone' => 'required|string|max:255|min:02|required',
+            'status' => 'required|string|max:255|min:02|required',
             'subject' => 'required|string|max:255|min:02|required',
             'description' => 'required|string|max:255|min:02|required',
         ]);
 
         $ticket = TicketModel::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'status' => 'Aberto',
+            'status' => $request->status,
             'subject' => $request->subject,
             'description' => $request->description,
             'id_user' => auth()->user()->id
@@ -111,12 +110,9 @@ class TicketController extends Controller
     {
         $request->validate(
             [
-                'name' => 'required|string|max:255|min:02|required',
-                'email' => 'required|string|max:255|min:02|required',
-                'phone' => 'required|string|max:255|min:02|required',
-                'status' => 'required|string|max:255|min:02|required',
                 'subject' => 'required|string|max:255|min:02|required',
                 'description' => 'required|string|max:255|min:02|required',
+                'status' => 'required|string|max:255|min:02|required',
             ]
         );
 

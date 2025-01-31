@@ -5,13 +5,11 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 
 export default function TicketCreate() {
-    const { flash } = usePage().props;
-    
+    const { flash, users } = usePage().props;
+
     const { data, setData, post, processing, errors } = useForm({
-        name: "",
         email: "",
-        phone: "",
-        status: "Aberto",
+        status: "",
         subject: "",
         description: "",
     });
@@ -38,39 +36,13 @@ export default function TicketCreate() {
                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
                         <div>
                             <label
-                                htmlFor="name"
+                                htmlFor="user_email"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Nome
+                                Selecionar Usuário (Email)
                             </label>
-                            <input
-                                id="name"
-                                type="text"
-                                value={data.name}
-                                placeholder="Nome do solicitante"
-                                onChange={(e) =>
-                                    setData("name", e.target.value)
-                                }
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                required
-                            />
-                            {errors.name && (
-                                <p className="text-red-500 text-sm">
-                                    {errors.name}
-                                </p>
-                            )}
-                        </div>
-
-                        <div>
-                            <label
-                                htmlFor="email"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                E-mail
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
+                            <select
+                                id="user_email"
                                 value={data.email}
                                 placeholder="E-mail do solicitante"
                                 onChange={(e) =>
@@ -78,35 +50,65 @@ export default function TicketCreate() {
                                 }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                                 required
-                            />
+                            >
+                                <option value="" disabled>
+                                    Selecione um usuário
+                                </option>
+                                {users.map((user) => (
+                                    <option key={user.id} value={user.email}>
+                                        {user.email}
+                                    </option>
+                                ))}
+                            </select>
                             {errors.email && (
                                 <p className="text-red-500 text-sm">
                                     {errors.email}
                                 </p>
                             )}
                         </div>
-
-                        <div>
-                            <label
-                                htmlFor="phone"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                Telefone
+                        <div className="flex items-center space-x-4">
+                            <label className="flex items-center">
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="Aberto"
+                                    checked={data.status === "Aberto"}
+                                    onChange={(e) =>
+                                        setData("status", e.target.value)
+                                    }
+                                    className="mr-2"
+                                />
+                                Aberto
                             </label>
-                            <input
-                                id="phone"
-                                type="text"
-                                value={data.phone}
-                                placeholder="Telefone para contato"
-                                onChange={(e) =>
-                                    setData("phone", e.target.value)
-                                }
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                required
-                            />
-                            {errors.phone && (
+                            <label htmlFor="flex items-center">
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="Em andamento"
+                                    checked={data.status === "Em andamento"}
+                                    onChange={(e) =>
+                                        setData("status", e.target.value)
+                                    }
+                                    className="mr-2"
+                                />
+                                Em andamento
+                            </label>
+                            <label className="flex items-center">
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="Resolvido"
+                                    checked={data.status === "Resolvido"}
+                                    onChange={(e) =>
+                                        setData("status", e.target.value)
+                                    }
+                                    className="mr-2"
+                                />
+                                Resolvido
+                            </label>
+                            {errors.status && (
                                 <p className="text-red-500 text-sm">
-                                    {errors.phone}
+                                    {errors.status}
                                 </p>
                             )}
                         </div>

@@ -15,8 +15,8 @@ export default function TicketIndex() {
     const { data, setData, put, processing } = useForm({
         id: "",
         name: "",
-        email: "",
         phone: "",
+        email: "",
         status: "",
         subject: "",
         description: "",
@@ -34,8 +34,8 @@ export default function TicketIndex() {
             ...prev,
             id: ticket.id,
             name: ticket.name,
-            email: ticket.email,
             phone: ticket.phone,
+            email: ticket.email,
             status: ticket.status,
             subject: ticket.subject,
             description: ticket.description,
@@ -56,7 +56,7 @@ export default function TicketIndex() {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-50 leading-tight">
-                    Suporte
+                    Vendor
                 </h2>
             }
         >
@@ -116,25 +116,6 @@ export default function TicketIndex() {
 
                                         <td className="px-6 py-2 text-sm text-gray-700">
                                             {editingTicket?.id === ticket.id &&
-                                            editingTicket?.field === "email" ? (
-                                                <input
-                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                                    value={data.email}
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "email",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    autoFocus
-                                                />
-                                            ) : (
-                                                ticket.email
-                                            )}
-                                        </td>
-
-                                        <td className="px-6 py-2 text-sm text-gray-700">
-                                            {editingTicket?.id === ticket.id &&
                                             editingTicket?.field === "phone" ? (
                                                 <input
                                                     className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -149,6 +130,25 @@ export default function TicketIndex() {
                                                 />
                                             ) : (
                                                 ticket.phone
+                                            )}
+                                        </td>
+
+                                        <td className="px-6 py-2 text-sm text-gray-700">
+                                            {editingTicket?.id === ticket.id &&
+                                            editingTicket?.field === "email" ? (
+                                                <input
+                                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                                                    value={data.email}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "email",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    autoFocus
+                                                />
+                                            ) : (
+                                                ticket.email
                                             )}
                                         </td>
 
