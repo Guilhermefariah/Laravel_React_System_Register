@@ -18,11 +18,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
-});
-
-Route::get('/login', function () {
-    return Inertia::render('Login', [
+    return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -37,11 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
-    Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
-    Route::get('/create-ticket', [TicketController::class, 'create'])->name('tickets.create');
-    Route::post('/store-ticket', [TicketController::class, 'store'])->name('tickets.store');
-    Route::delete('/destroy-ticket/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
+    Route::resource('tickets', TicketController::class)->middleware(['auth', 'verified']);
 });
 
 require __DIR__ . '/auth.php';
