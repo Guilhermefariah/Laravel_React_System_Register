@@ -11,46 +11,31 @@ use Inertia\Inertia;
 
 class TicketController extends Controller
 {
-    private $objUser;
-    private $objTicket;
-
-    public function __construct()
-    {
-        $this->objUser = new User();
-        $this->objTicket = new TicketModel();
-    }
-
     public function index()
     {
         $user = auth()->user();
-
-        $tickets = $this->objTicket->where('id_user', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->with('user')
-            ->get();
+        $tickets = TicketModel::where('id_user', $user->id)->get();
 
         return Inertia::render('Tickets/TicketIndex', [
+            'user' => $user,
+            'tickets' => $tickets
+        ]);
+    }
+
+    public function show(User $user): Response
+    {
+        $tickets = TicketModel::where('id_user', $user->id)->get();
+
+        return Inertia::render('Tickets/TicketShow', [
             'user' => $user,
             'tickets' => $tickets,
         ]);
     }
 
-    public function show(TicketModel $ticket): Response
-    {
-        $user = auth()->user();
-
-        $ticket = $this->objTicket->where('id_user', $user->id)
-            ->where('id', $ticket->id)
-            ->with('user')
-            ->first();
-            
-        return Inertia::render('Tickets/TicketShow', ['ticket' => $ticket]);
-    }
-
     public function create(): Response
     {
         $users = User::all();
-        
+
         return Inertia::render('Tickets/TicketCreate', [
             'users' => $users,
         ]);
@@ -59,25 +44,30 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'email' => 'required|email|exists:users,email',
             'status' => 'required|string|max:255',
             'subject' => 'required|string|max:255',
             'description' => 'required|string|max:255',
         ]);
 
+        $user = User::where('email', $request->email)->firstOrFail();
+
         $ticket = TicketModel::create([
-            'id_user' => auth()->id(),
+            'id_user' => $user->id,
             'status' => $request->status,
             'subject' => $request->subject,
             'description' => $request->description,
         ]);
 
-        return Redirect::route('tickets.create', ['ticket' => $ticket->id])->with('success', 'Ticket criado com sucesso');
+        return Redirect::route('tickets.index')->with('success', 'Ticket criado com sucesso');
     }
 
     public function edit(TicketModel $ticket): Response
     {
-        $ticket = $this->objTicket->findOrFail($ticket->id);
-        return Inertia::render('Tickets/TicketEdit', ['ticket' => $ticket]);
+        return Inertia::render('Tickets/TicketEdit', [
+            'user' => $ticket->user,
+            'ticket' => $ticket,
+        ]);
     }
 
     public function update(Request $request, TicketModel $ticket)

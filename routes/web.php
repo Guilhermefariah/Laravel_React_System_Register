@@ -24,7 +24,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-})->name('login');
+})->name('welcome');
 
 Route::get('/ticket/create', [TicketController::class, 'create'])->name('tickets.create');
 
@@ -34,11 +34,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/ticket', [TicketController::class, 'index'])->name('tickets.index');
-    Route::get('/ticket/{id}', [TicketController::class, 'show'])->name('tickets.show');
     Route::post('/ticket', [TicketController::class, 'store'])->name('tickets.store');
-    Route::get('/ticket/{id}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
-    Route::put('/ticket/{id}', [TicketController::class, 'update'])->name('tickets.update');
-    Route::delete('/ticket/{id}', [TicketController::class, 'destroy'])->name('tickets.destroy');
+    Route::get('/ticket/show/{user}', [TicketController::class, 'show'])->name('tickets.show');
+    Route::get('/ticket/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
+    Route::delete('/ticket/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
 });
 
 require __DIR__ . '/auth.php';
+

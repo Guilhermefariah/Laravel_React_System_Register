@@ -18,6 +18,28 @@ export default function Authenticated({ header, children }) {
                             </Link>
                         </div>
 
+                        <div className="hidden sm:flex sm:ml-6">
+                            <div className="flex space-x-4">
+                                <ResponsiveNavLink
+                                    href={route("profile.edit")}
+                                    active={route().current("profile.edit")}
+                                >
+                                    Perfil
+                                </ResponsiveNavLink>
+                            </div>
+                        </div>
+
+                        <div className="hidden sm:flex sm:ml-6">
+                            <div className="flex space-x-4">
+                                <ResponsiveNavLink
+                                    href={route("logout")}
+                                    method="post"
+                                    active={route().current("logout")}
+                                >
+                                    Sair
+                                </ResponsiveNavLink>
+                            </div>
+                        </div>
 
                         <div className="-mr-2 flex items-center sm:hidden">
                             <button
@@ -79,15 +101,6 @@ export default function Authenticated({ header, children }) {
 
                 </div>
             </nav>
-
-            {header && (
-                <header className="bg-gradient-to-r from-blue-500 to-blue-600 shadow-xl">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white">
-                        {header}
-                    </div>
-                </header>
-            )}
-
             <main>{children}</main>
         </div>
     );

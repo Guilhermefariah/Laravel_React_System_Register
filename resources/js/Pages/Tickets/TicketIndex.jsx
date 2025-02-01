@@ -1,10 +1,18 @@
 import { motion } from "framer-motion";
 import Chatbot from "@/Components/ChatBot/ChatBot";
 import { Link, Head } from "@inertiajs/react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function TicketIndex({ user }) {
     return (
-        <>
+        <AuthenticatedLayout
+            user={user}
+            header={
+                <h2 className="font-semibold text-xl text-gray-50 leading-tight">
+                    Fale conosco
+                </h2>
+            }
+        >
             <Head title="Tickets Suporte" />
             <div className="relative flex flex-col sm:flex-row sm:justify-center sm:items-center min-h-screen bg-gray-100 selection:bg-red-500 selection:text-white">
                 <motion.div
@@ -19,13 +27,14 @@ export default function TicketIndex({ user }) {
                         className="w-full max-w-md rounded-xl shadow-xl transition-transform duration-300 hover:scale-105"
                     />
                 </motion.div>
-                
+
                 <motion.div
                     className="w-full sm:w-1/2 flex flex-col items-center sm:items-start justify-center p-6"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
+                   
                     <h1 className="text-4xl font-extrabold text-blue-700 mb-6 text-center sm:text-left leading-tight">
                         Olá, {user.name}
                     </h1>
@@ -50,7 +59,7 @@ export default function TicketIndex({ user }) {
 
                     <div className="space-y-4 w-full sm:w-auto">
                         <Link
-                            href={route("tickets.index")}
+                            href={route("tickets.show", { id: user.id})}
                             className="block w-full sm:w-64 text-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105 focus:outline-none"
                         >
                             Visualizar Tickets
@@ -59,6 +68,6 @@ export default function TicketIndex({ user }) {
                 </motion.div>
             </div>
             <Chatbot />
-        </>
+        </AuthenticatedLayout>
     );
 }
