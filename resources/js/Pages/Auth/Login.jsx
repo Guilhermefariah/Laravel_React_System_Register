@@ -73,7 +73,7 @@ export default function Login({ status, canResetPassword }) {
                                 setData("remember", e.target.checked)
                             }
                         />
-                        <span className="ms-2 text-lg text-gray-600 dark:text-gray-400">
+                        <span className="ms-2 text-lg text-gray-700">
                             Lembre-me
                         </span>
                     </label>

@@ -27,7 +27,7 @@ export default function Welcome() {
                         </Link>
 
                         <Link
-                            href={route("login")}
+                            href={route("tickets.index")}
                             className="block w-full sm:w-64 text-center px-6 py-3 bg-blue-300 text-white font-semibold rounded-lg shadow-md hover:bg-blue-400 transition focus:outline-none focus:ring-none"
                         >
                             Visualizar Tickets

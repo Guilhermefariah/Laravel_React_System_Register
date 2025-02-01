@@ -26,12 +26,21 @@ Route::get('/', function () {
     ]);
 })->name('login');
 
-Route::resource('tickets', TicketController::class);
+Route::get('/ticket/create', [TicketController::class, 'create'])->name('tickets.create');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/ticket', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('/ticket/{id}', [TicketController::class, 'show'])->name('tickets.show');
+    Route::post('/ticket', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/ticket/create', [TicketController::class, 'create'])->name('tickets.create');
+
+    Route::get('/ticket/{id}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
+    Route::put('/ticket/{id}', [TicketController::class, 'update'])->name('tickets.update');
+    Route::delete('/ticket/{id}', [TicketController::class, 'destroy'])->name('tickets.destroy');
 });
 
 require __DIR__ . '/auth.php';
