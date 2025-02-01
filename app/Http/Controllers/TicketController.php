@@ -24,7 +24,10 @@ class TicketController extends Controller
     {
         $user = auth()->user();
 
-        $tickets = $this->objTicket->where('id_user', $user->id)->orderBy('created_at', 'desc')->get();
+        $tickets = $this->objTicket->where('id_user', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->with('user')
+            ->get();
 
         $openCount = $this->objTicket->where('id_user', $user->id)
             ->where(function ($query) {
@@ -76,7 +79,7 @@ class TicketController extends Controller
     public function create(): Response
     {
         $users = User::all();
-
+        
         return Inertia::render('Tickets/TicketCreate', [
             'users' => $users,
         ]);
@@ -85,24 +88,24 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'status' => 'required|string|max:255|min:02|required',
-            'subject' => 'required|string|max:255|min:02|required',
-            'description' => 'required|string|max:255|min:02|required',
+            'status' => 'required|string|max:255',
+            'subject' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
         ]);
 
         $ticket = TicketModel::create([
+            'id_user' => auth()->id(),
             'status' => $request->status,
             'subject' => $request->subject,
             'description' => $request->description,
-            'id_user' => auth()->user()->id
         ]);
 
         return Redirect::route('tickets.create', ['ticket' => $ticket->id])->with('success', 'Ticket criado com sucesso');
     }
 
-    public function edit($id): Response
+    public function edit(TicketModel $ticket): Response
     {
-        $ticket = $this->objTicket->findOrFail($id);
+        $ticket = $this->objTicket->findOrFail($ticket->id);
         return Inertia::render('Tickets/TicketEdit', ['ticket' => $ticket]);
     }
 
@@ -110,9 +113,9 @@ class TicketController extends Controller
     {
         $request->validate(
             [
-                'subject' => 'required|string|max:255|min:02|required',
-                'description' => 'required|string|max:255|min:02|required',
-                'status' => 'required|string|max:255|min:02|required',
+                'subject' => 'required|string|max:255|min:2',
+                'description' => 'required|string|max:255|min:2',
+                'status' => 'required|string|max:255|min:2',
             ]
         );
 

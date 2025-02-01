@@ -21,7 +21,7 @@ class TicketModel extends Model
         'id_user',
     ];
 
-    public function relUsers()
+    public function user()
     {
         return $this->hasOne('App\Models\User', 'id', 'id_user');
     }
