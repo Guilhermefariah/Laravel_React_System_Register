@@ -4,7 +4,7 @@ import { Link, Head } from "@inertiajs/react";
 export default function Welcome() {
     return (
         <>
-            <Head title="Welcome" />
+            <Head title="Tickets Suporte" />
             <div className="relative flex flex-col sm:flex-row sm:justify-center sm:items-center min-h-screen bg-gray-100 selection:bg-red-500 selection:text-white">
                 <div className="w-full sm:w-1/2 flex items-center justify-center p-6">
                     <img
@@ -17,7 +17,7 @@ export default function Welcome() {
                 <div className="w-full sm:w-1/2 flex flex-col items-center sm:items-start justify-center p-6">
                     <h1 className="text-4xl font-extrabold text-blue-700 mb-6 text-center sm:text-left leading-tight">
                         Bem-vindo ao <br />
-                        <span className="text-gray-900">Tickets Support</span>
+                        <span className="text-gray-700">Tickets Suporte</span>
                     </h1>
                     
                     <p className="text-gray-600 text-lg text-center sm:text-left mb-6">

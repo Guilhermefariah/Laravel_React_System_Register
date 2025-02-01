@@ -27,7 +27,7 @@ export default function TicketCreate() {
                 </h2>
             }
         >
-            <Head title="Ticket" />
+            <Head title="Tickets Suporte" />
 
             <AlertMessage message={flash} />
 
