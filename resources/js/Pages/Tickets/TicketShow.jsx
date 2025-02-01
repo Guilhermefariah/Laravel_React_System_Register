@@ -7,7 +7,7 @@ import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import DateUpdated from "@/Components/Date/DateUpdated/DateUpdated";
 import DateCreated from "@/Components/Date/DateCreated/DateCreated";
 
-export default function TicketIndex({ auth, tickets, flash }) {
+export default function TicketShow({ auth, tickets, flash }) {
     const { data, setData, put, processing } = useForm({
         id: "",
         name: "",

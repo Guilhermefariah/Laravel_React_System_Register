@@ -36,7 +36,7 @@ export default function Welcome() {
                             href={route("tickets.index")}
                             className="block w-full sm:w-64 text-center px-6 py-3 bg-blue-400 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500 transition-all transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-200"
                         >
-                            Visualizar Tickets
+                            Perfil do Vendedor
                         </Link>
                     </div>
                 </div>

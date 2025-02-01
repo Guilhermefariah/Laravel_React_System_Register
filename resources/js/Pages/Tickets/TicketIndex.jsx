@@ -50,7 +50,7 @@ export default function TicketIndex({ user }) {
 
                     <div className="space-y-4 w-full sm:w-auto">
                         <Link
-                            href={route("tickets.create")}
+                            href={route("tickets.show")}
                             className="block w-full sm:w-64 text-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105 focus:outline-none"
                         >
                             Visualizar Tickets
