@@ -7,7 +7,6 @@ import TableHead from "@/Components/Table/TableHead/TableHead";
 import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
 import DateUpdated from "@/Components/Date/DateUpdated/DateUpdated";
 import DateCreated from "@/Components/Date/DateCreated/DateCreated";
-import Chatbot from "@/Components/ChatBot/ChatBot";
 
 export default function TicketIndex() {
     const { auth, tickets, flash } = usePage().props;
@@ -322,7 +321,6 @@ export default function TicketIndex() {
                     </div>
                 </div>
             </div>
-            <Chatbot />
         </AuthenticatedLayout>
     );
 }

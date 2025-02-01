@@ -1,3 +1,4 @@
+import Chatbot from "@/Components/ChatBot/ChatBot";
 import { Link, Head } from "@inertiajs/react";
 
 export default function Welcome() {
@@ -40,6 +41,7 @@ export default function Welcome() {
                     </div>
                 </div>
             </div>
+            <Chatbot />
         </>
     );
 }

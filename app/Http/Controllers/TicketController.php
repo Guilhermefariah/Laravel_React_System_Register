@@ -29,50 +29,21 @@ class TicketController extends Controller
             ->with('user')
             ->get();
 
-        $openCount = $this->objTicket->where('id_user', $user->id)
-            ->where(function ($query) {
-                $query->where('status', 'like', '%Aberto%')
-                    ->orWhere('status', 'like', '%aberto%')
-                    ->orWhere('status', 'like', '%aberta%')
-                    ->orWhere('status', 'like', '%Aberto%')
-                    ->orWhere('status', 'like', '%novo%')
-                    ->orWhere('status', 'like', '%Novo%');
-            })
-            ->count();
-
-        $inProgressCount = $this->objTicket->where('id_user', $user->id)
-            ->where(function ($query) {
-                $query->where('status', 'like', '%andamento%')
-                    ->orWhere('status', 'like', '%Andamento%')
-                    ->orWhere('status', 'like', '%Em andamento%')
-                    ->orWhere('status', 'like', '%em andamento%')
-                    ->orWhere('status', 'like', '%faltando%')
-                    ->orWhere('status', 'like', '%Faltando%');
-            })
-            ->count();
-
-        $resolvedCount = $this->objTicket->where('id_user', $user->id)
-            ->where(function ($query) {
-                $query->where('status', 'like', '%resolvido%')
-                    ->orWhere('status', 'like', '%Resolvido%')
-                    ->orWhere('status', 'like', '%resolvida%')
-                    ->orWhere('status', 'like', '%Resolvido%')
-                    ->orWhere('status', 'like', '%pronto%')
-                    ->orWhere('status', 'like', '%Pronto%');
-            })->count();
-
         return Inertia::render('Tickets/TicketIndex', [
             'user' => $user,
             'tickets' => $tickets,
-            'openCount' => $openCount,
-            'inProgressCount' => $inProgressCount,
-            'resolvedCount' => $resolvedCount,
         ]);
     }
 
     public function show(TicketModel $ticket): Response
     {
+        $user = auth()->user();
 
+        $ticket = $this->objTicket->where('id_user', $user->id)
+            ->where('id', $ticket->id)
+            ->with('user')
+            ->first();
+            
         return Inertia::render('Tickets/TicketShow', ['ticket' => $ticket]);
     }
 

@@ -49,7 +49,7 @@ export default function Chatbot() {
                 className="bg-green-600 text-white p-3 rounded-t-lg cursor-pointer flex justify-between items-center"
                 onClick={() => setIsMinimized(!isMinimized)}
             >
-                <FaWhatsapp size={24} />
+                <FaWhatsapp size={30} />
             </div>
 
             {!isMinimized && (
