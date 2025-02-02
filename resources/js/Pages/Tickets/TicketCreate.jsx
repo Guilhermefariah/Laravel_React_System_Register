@@ -10,6 +10,7 @@ export default function TicketCreate() {
     const { data, setData, post, processing, errors } = useForm({
         email: "",
         status: "",
+        amount_tickets: "",
         subject: "",
         description: "",
     });
@@ -39,7 +40,7 @@ export default function TicketCreate() {
                                 htmlFor="user_email"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Selecionar Usuário (Email)
+                                Selecione o Usuário
                             </label>
                             <select
                                 id="user_email"
@@ -66,28 +67,72 @@ export default function TicketCreate() {
                                 </p>
                             )}
                         </div>
-                        <div className="flex items-center space-x-4">
-                            <label className="flex items-center">
+
+                        <div>
+                            <label
+                                htmlFor="status"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Status
+                            </label>
+                            <label className="flex items-center space-x-2">
                                 <input
                                     type="radio"
                                     name="status"
+                                    value="Ativo"
+                                    checked={data.status === "Ativo"}
+                                    onChange={(e) => setData("status", e.target.value)}
+                                    className="mr-2"
+                                />
+                                Ativo
+                            </label>
+
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="Inativo"
+                                    checked={data.status === "Inativo"}
+                                    onChange={(e) => setData("status", e.target.value)}
+                                    className="mr-2"
+                                />
+                                Inativo
+                            </label>
+
+                            {errors.status && (
+                                <p className="text-red-500 text-sm">
+                                    {errors.status}
+                                </p>
+                            )}
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor="amount_tickets"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Quantidade de Tickets
+                            </label>
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="radio"
+                                    name="amount_tickets"
                                     value="Aberto"
-                                    checked={data.status === "Aberto"}
-                                    onChange={(e) =>
-                                        setData("status", e.target.value)
-                                    }
+                                    checked={data.amount_tickets === "Aberto"}
+                                    onChange={(e) => setData("amount_tickets", e.target.value)}
                                     className="mr-2"
                                 />
                                 Aberto
                             </label>
+
                             <label htmlFor="flex items-center">
                                 <input
                                     type="radio"
-                                    name="status"
+                                    name="amount_tickets"
                                     value="Em andamento"
-                                    checked={data.status === "Em andamento"}
+                                    checked={data.amount_tickets === "Em andamento"}
                                     onChange={(e) =>
-                                        setData("status", e.target.value)
+                                        setData("amount_tickets", e.target.value)
                                     }
                                     className="mr-2"
                                 />
@@ -96,19 +141,19 @@ export default function TicketCreate() {
                             <label className="flex items-center">
                                 <input
                                     type="radio"
-                                    name="status"
+                                    name="amount_tickets"
                                     value="Resolvido"
-                                    checked={data.status === "Resolvido"}
+                                    checked={data.amount_tickets === "Resolvido"}
                                     onChange={(e) =>
-                                        setData("status", e.target.value)
+                                        setData("amount_tickets", e.target.value)
                                     }
                                     className="mr-2"
                                 />
                                 Resolvido
                             </label>
-                            {errors.status && (
+                            {errors.amount_tickets && (
                                 <p className="text-red-500 text-sm">
-                                    {errors.status}
+                                    {errors.amount_tickets}
                                 </p>
                             )}
                         </div>

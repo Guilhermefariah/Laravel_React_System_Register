@@ -46,6 +46,7 @@ class TicketController extends Controller
         $request->validate([
             'email' => 'required|email|exists:users,email',
             'status' => 'required|string|max:255',
+            'amount_tickets' => 'required|string|max:255',
             'subject' => 'required|string|max:255',
             'description' => 'required|string|max:255',
         ]);
@@ -55,6 +56,7 @@ class TicketController extends Controller
         $ticket = TicketModel::create([
             'id_user' => $user->id,
             'status' => $request->status,
+            'amount_tickets' => $request->amount_tickets,
             'subject' => $request->subject,
             'description' => $request->description,
         ]);
@@ -77,6 +79,7 @@ class TicketController extends Controller
                 'subject' => 'required|string|max:255|min:2',
                 'description' => 'required|string|max:255|min:2',
                 'status' => 'required|string|max:255|min:2',
+                'amount_tickets' => 'required|string|max:255|min:2',
             ]
         );
 

@@ -16,6 +16,7 @@ class TicketModel extends Model
         'email',
         'phone',
         'status',
+        'amount_tickets',
         'subject',
         'description',
         'id_user',
