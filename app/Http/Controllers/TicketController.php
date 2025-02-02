@@ -61,7 +61,7 @@ class TicketController extends Controller
             'description' => $request->description,
         ]);
 
-        return Redirect::route('tickets.index')->with('success', 'Ticket criado com sucesso');
+        return Redirect::route('tickets.create')->with('success', 'Ticket criado com sucesso');
     }
 
     public function edit(TicketModel $ticket): Response

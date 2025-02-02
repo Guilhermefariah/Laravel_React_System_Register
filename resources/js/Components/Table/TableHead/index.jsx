@@ -1,40 +1,42 @@
 import React from "react";
-import { FaRegIdCard } from "react-icons/fa";
-import { FaStar } from "react-icons/fa6";
-import { IoMdNotifications, IoMdText } from "react-icons/io";
+import { FaUser, FaPhone, FaEnvelope, FaRegIdCard, FaStar } from "react-icons/fa";
+import { IoMdImage, IoMdNotifications, IoMdText } from "react-icons/io";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 
 export default function TableHead() {
     return (
-        <thead className="bg-gray-100 max-w-2 cursor-pointer">
+        <thead className="bg-gray-200 text-gray-400 text-sm">
             <tr>
-                <th className="px-6 py-3 text-left text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 hover:rounded-lg">
-                    <FaRegIdCard className="size-6" />
+                <th className="px-4 py-3 text-left">
+                    <FaRegIdCard className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 hover:rounded-lg">
-                    <FaRegIdCard className="size-6" />
+                <th className="px-4 py-3 text-left">
+                    <FaUser className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 hover:rounded-lg">
-                    <FaRegIdCard className="size-6" />
+                <th className="px-4 py-3 text-left">
+                    <FaPhone className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 hover:rounded-lg">
-                    <FaRegIdCard className="size-6" />
+                <th className="px-4 py-3 text-left">
+                    <FaEnvelope className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
                 </th>
-                <th className="px-10 py-3 text-left text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 hover:rounded-lg">
-                    <FaStar className="size-6" />
+                <th className="px-4 py-3 text-left">
+                    <IoMdNotifications className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
                 </th>
-                <th className="px-20 py-3 text-left text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 hover:rounded-lg">
-                    <IoMdText className="size-6" />
+                <th className="px-4 py-3 text-left">
+                    <FaStar className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
                 </th>
-                <th className="px-14 py-3 text-left text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 hover:rounded-lg">
-                    <BsCalendarDateFill className="size-5" />
+                <th className="px-4 py-3 text-left">
+                    <IoMdImage className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
                 </th>
-                <th className="px-8 py-3 text-left text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 hover:rounded-lg">
-                    <IoMdNotifications className="size-6" />
+                <th className="px-4 py-3 text-left">
+                    <IoMdText className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
                 </th>
-                <th className="flex px-6 py-3 text-center justify-center text-sm font-medium text-blue-600 hover:text-gray-700 tracking-wider hover:bg-gray-50 rounded-lg">
-                    <FiSettings className="size-6" />
+                <th className="px-4 py-3 text-left">
+                    <BsCalendarDateFill className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                </th>
+                <th className="px-4 py-3 text-left">
+                    <FiSettings className="size-5 mx-auto text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-gray-400" />
                 </th>
             </tr>
         </thead>
