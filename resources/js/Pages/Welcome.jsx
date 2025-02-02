@@ -1,5 +1,6 @@
 import Chatbot from "@/Components/ChatBot/ChatBot";
 import { Link, Head } from "@inertiajs/react";
+import { motion } from "framer-motion";
 
 export default function Welcome() {
     return (
@@ -19,25 +20,37 @@ export default function Welcome() {
                         Bem-vindo ao <br />
                         <span className="text-gray-700">Tickets Suporte</span>
                     </h1>
-                    
+
                     <p className="text-gray-600 text-lg text-center sm:text-left mb-6">
                         Gerencie seus tickets com rapidez e eficiência.
                     </p>
-
                     <div className="space-y-4 w-full sm:w-auto">
-                        <Link
-                            href={route("tickets.create")}
-                            className="block w-full sm:w-64 text-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105 focus:outline-none"
+                        <motion.h2
+                            className="font-semibold text-xl text-gray-50 leading-tight"
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}>
+                            <Link
+                                href={route("tickets.create")}
+                                className="block w-full sm:w-64 text-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105 focus:outline-none"
+                            >
+                                Criar Ticket
+                            </Link>
+                        </motion.h2>
+                        <motion.h2
+                            className="font-semibold text-xl text-gray-50 leading-tight"
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
                         >
-                            Criar Ticket
-                        </Link>
 
-                        <Link
-                            href={route("tickets.index")}
-                            className="block w-full sm:w-64 text-center px-6 py-3 bg-blue-400 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500 transition-all transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-200"
-                        >
-                            Perfil do Vendedor
-                        </Link>
+                            <Link
+                                href={route("tickets.index")}
+                                className="block w-full sm:w-64 text-center px-6 py-3 bg-blue-400 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500 transition-all transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-200"
+                            >
+                                Perfil do Vendedor
+                            </Link>
+                        </motion.h2>
                     </div>
                 </div>
             </div>

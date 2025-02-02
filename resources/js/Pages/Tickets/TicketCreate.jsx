@@ -3,6 +3,7 @@ import { Head, usePage } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
+import { motion } from "framer-motion";
 
 export default function TicketCreate() {
     const { flash, users } = usePage().props;
@@ -33,9 +34,18 @@ export default function TicketCreate() {
             <AlertMessage message={flash} />
 
             <div className="py-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="bg-white shadow-lg rounded-lg">
+                <motion.div
+                    className="bg-white shadow-lg rounded-lg"
+                    initial={{ opacity: 0, x: -100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <label
                                 htmlFor="user_email"
                                 className="block text-sm font-medium text-gray-700"
@@ -66,9 +76,13 @@ export default function TicketCreate() {
                                     {errors.email}
                                 </p>
                             )}
-                        </div>
+                        </motion.div>
 
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <label
                                 htmlFor="status"
                                 className="block text-sm font-medium text-gray-700"
@@ -104,13 +118,16 @@ export default function TicketCreate() {
                                     {errors.status}
                                 </p>
                             )}
-                        </div>
+                        </motion.div>
 
-                        <div>
-                            <label
-                                htmlFor="amount_tickets"
-                                className="block text-sm font-medium text-gray-700"
-                            >
+                        <motion.div
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >                            <label
+                            htmlFor="amount_tickets"
+                            className="block text-sm font-medium text-gray-700"
+                        >
                                 Quantidade de Tickets
                             </label>
                             <label className="flex items-center space-x-2">
@@ -156,9 +173,13 @@ export default function TicketCreate() {
                                     {errors.amount_tickets}
                                 </p>
                             )}
-                        </div>
+                        </motion.div>
 
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <label
                                 htmlFor="subject"
                                 className="block text-sm font-medium text-gray-700"
@@ -181,9 +202,13 @@ export default function TicketCreate() {
                                     {errors.subject}
                                 </p>
                             )}
-                        </div>
+                        </motion.div>
 
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <label
                                 htmlFor="description"
                                 className="block text-sm font-medium text-gray-700"
@@ -206,18 +231,25 @@ export default function TicketCreate() {
                                     {errors.description}
                                 </p>
                             )}
-                        </div>
-                        <div className="flex justify-end">
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                            >
-                                Criar Ticket
-                            </button>
-                        </div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                                >
+                                    Criar Ticket
+                                </button>
+                            </div>
+                        </motion.div>
                     </form>
-                </div>
+                </motion.div>
             </div>
         </AuthenticatedLayout>
     );
