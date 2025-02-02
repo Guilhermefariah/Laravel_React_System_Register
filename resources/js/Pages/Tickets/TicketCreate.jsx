@@ -1,9 +1,9 @@
 import React from "react";
 import { Head, usePage } from "@inertiajs/react";
 import { useForm } from "@inertiajs/react";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 import { motion } from "framer-motion";
+import GuestLayout from "@/Layouts/GuestLayout";
 
 export default function TicketCreate() {
     const { flash, users } = usePage().props;
@@ -22,18 +22,23 @@ export default function TicketCreate() {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="font-semibold text-xl text-gray-50 leading-tight">
-                    Fale conosco
-                </h2>
-            }
-        >
+        <GuestLayout>
             <Head title="Tickets Suporte" />
 
             <AlertMessage message={flash} />
 
             <div className="py-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div className="px-6 py-8 sm:p-8 bg-white rounded-lg shadow-md border-none border-gray-200">
+                    <h1 className="text-4xl font-extrabold text-center text-blue-600 leading-tight">
+                        Suporte para Vendedores
+                    </h1>
+                    <p className="mt-4 text-lg text-center text-gray-500">
+                        Selecione um vendedor e envie um ticket
+                        <br />
+                        Acompanhe e resolva todos os casos com facilidade
+                    </p>
+                </div>
+
                 <motion.div
                     className="bg-white shadow-lg rounded-lg"
                     initial={{ opacity: 0, x: -100 }}
@@ -50,7 +55,7 @@ export default function TicketCreate() {
                                 htmlFor="user_email"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Selecione o Usuário
+                                Selecione um Vendedor
                             </label>
                             <select
                                 id="user_email"
@@ -63,7 +68,7 @@ export default function TicketCreate() {
                                 required
                             >
                                 <option value="" disabled>
-                                    Selecione um usuário
+                                    Selecione um Vendedor
                                 </option>
                                 {users.map((user) => (
                                     <option key={user.id} value={user.email}>
@@ -251,6 +256,6 @@ export default function TicketCreate() {
                     </form>
                 </motion.div>
             </div>
-        </AuthenticatedLayout>
+        </GuestLayout>
     );
 }

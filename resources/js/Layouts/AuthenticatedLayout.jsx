@@ -2,10 +2,11 @@ import { useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
+import Dropdown from "@/Components/Dropdown";
+import { FaUser } from "react-icons/fa";
 
-export default function Authenticated({ header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
+export default function Authenticated({ user, header, children }) {
+    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -18,27 +19,27 @@ export default function Authenticated({ header, children }) {
                             </Link>
                         </div>
 
-                        <div className="hidden sm:flex sm:ml-6">
-                            <div className="flex space-x-4">
-                                <ResponsiveNavLink
-                                    href={route("profile.edit")}
-                                    active={route().current("profile.edit")}
-                                >
-                                    Perfil
-                                </ResponsiveNavLink>
-                            </div>
-                        </div>
+                        <div className="hidden sm:flex sm:items-center sm:ms-6">
+                            <div className="ms-3 relative">
+                                <Dropdown>
+                                    <Dropdown.Trigger>
+                                        <span className="inline-flex rounded-md">
+                                            <button
+                                                type="button"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-600 hover:text-yellow-400 focus:outline-none transition ease-in-out duration-150"
+                                            >
+                                                <FaUser className="h-5 w-5 mr-2" />
+                                            </button>
+                                        </span>
+                                    </Dropdown.Trigger>
 
-                        <div className="hidden sm:flex sm:ml-6">
-                            <div className="flex space-x-4">
-                                <ResponsiveNavLink
-                                    href={route("logout")}
-                                    method="post"
-                                    active={route().current("logout")}
-                                    as="button"
-                                >
-                                    Sair
-                                </ResponsiveNavLink>
+                                    <Dropdown.Content>
+                                        <Dropdown.Link href={route('profile.edit')}>Perfil</Dropdown.Link>
+                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                            Sair
+                                        </Dropdown.Link>
+                                    </Dropdown.Content>
+                                </Dropdown>
                             </div>
                         </div>
 
@@ -49,7 +50,7 @@ export default function Authenticated({ header, children }) {
                                         (previousState) => !previousState
                                     )
                                 }
-                                className="p-2 rounded-md text-gray-700 hover:text-blue-500 transition duration-150"
+                                className="p-2 rounded-md text-gray-700 hover:text-blue-600 transition duration-150"
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -101,9 +102,23 @@ export default function Authenticated({ header, children }) {
                         </ResponsiveNavLink>
                     </div>
 
+                    <div className="pt-4 pb-1 border-t border-gray-200">
+                        <div className="px-4">
+                            <div className="font-medium text-base text-blue-600">{user.name}</div>
+                            <div className="font-medium text-base text-blue-600">{user.email}</div>
+                        </div>
+
+                        <div className="mt-3 space-y-1">
+                            <ResponsiveNavLink href={route('profile.edit')}>Perfil</ResponsiveNavLink>
+                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                                Sair
+                            </ResponsiveNavLink>
+                        </div>
+                    </div>
                 </div>
             </nav>
-            <main>{children}</main>
+
+            <main className="p-4 overflow-hidden">{children}</main>
         </div>
     );
 }
