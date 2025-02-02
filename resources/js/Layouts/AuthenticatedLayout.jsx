@@ -14,7 +14,7 @@ export default function Authenticated({ header, children }) {
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center">
                             <Link href="/">
-                                <ApplicationLogo className="block h-9 w-auto fill-current text-blue-600 hover:text-blue-700 transition duration-300" />
+                                <ApplicationLogo className="block h-10 w-auto fill-current text-blue-600 hover:text-yellow-400 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6" />
                             </Link>
                         </div>
 
@@ -35,6 +35,7 @@ export default function Authenticated({ header, children }) {
                                     href={route("logout")}
                                     method="post"
                                     active={route().current("logout")}
+                                    as="button"
                                 >
                                     Sair
                                 </ResponsiveNavLink>
@@ -94,6 +95,7 @@ export default function Authenticated({ header, children }) {
                         <ResponsiveNavLink
                             href={route("tickets.index")}
                             active={route().current("tickets.index")}
+                            as="button"
                         >
                             Início
                         </ResponsiveNavLink>

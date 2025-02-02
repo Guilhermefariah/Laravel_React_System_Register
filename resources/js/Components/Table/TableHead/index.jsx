@@ -9,34 +9,34 @@ export default function TableHead() {
         <thead className="bg-gray-200 text-gray-400 text-sm">
             <tr>
                 <th className="px-4 py-3 text-left">
-                    <FaRegIdCard className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <FaRegIdCard className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <FaUser className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <FaUser className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <FaPhone className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <FaPhone className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <FaEnvelope className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <FaEnvelope className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <IoMdNotifications className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <IoMdNotifications className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <FaStar className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <FaStar className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <IoMdImage className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <IoMdImage className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <IoMdText className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <IoMdText className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <BsCalendarDateFill className="size-5 mx-auto text-blue-600 transition-transform duration-200 hover:scale-110 hover:text-yellow-400" />
+                    <BsCalendarDateFill className="size-6 mx-auto text-blue-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-yellow-400" />
                 </th>
                 <th className="px-4 py-3 text-left">
-                    <FiSettings className="size-5 mx-auto text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-gray-400" />
+                    <FiSettings className="size-6 mx-auto text-gray-600 transition duration-300 ansition-all ease-in-out transform hover:scale-105 hover:rotate-6 hover:text-gray-400" />
                 </th>
             </tr>
         </thead>
