@@ -2,7 +2,6 @@ import React from "react";
 import { Head, Link } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { ConfirmDelete } from "@/Components/Delete/ConfirmDelete";
-import { AlertMessage } from "@/Components/Delete/AlertMessage/AlertMessage";
 import TableHead from "@/Components/Table/TableHead";
 import WarningButton from "@/Components/Button/WarningButton";
 import { motion } from "framer-motion";
@@ -45,7 +44,6 @@ export default function TicketShow({ user, auth, tickets, flash }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <AlertMessage message={flash} />
                     <div className="relative overflow-x-auto sm:rounded-lg">
                         <table className="min-w-full divide-y divide-gray-200">
                             <TableHead />
@@ -72,9 +70,9 @@ export default function TicketShow({ user, auth, tickets, flash }) {
                                                 {user.email}
                                             </td>
                                             <td
-                                                className={`px-8 py-3 text-sm font-semibold ${ticket.status === "aberto"
-                                                        ? "text-green-500"
-                                                        : "text-red-500"
+                                                className={`px-8 py-3 text-sm font-semibold ${ticket.status === "Ativo"
+                                                    ? "text-green-500"
+                                                    : "text-red-500"
                                                     }`}
                                             >
                                                 {ticket.status}

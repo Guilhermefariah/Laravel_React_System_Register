@@ -12,7 +12,7 @@ export default function TicketEdit({ ticket, flash }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route("tickets.show", { ticket: ticket.id }));
+        put(route("tickets.update", { ticket: ticket.id }));
     };
 
     return (

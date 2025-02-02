@@ -76,16 +76,15 @@ class TicketController extends Controller
     {
         $request->validate(
             [
-                'subject' => 'required|string|max:255|min:2',
-                'description' => 'required|string|max:255|min:2',
                 'status' => 'required|string|max:255|min:2',
                 'amount_tickets' => 'required|string|max:255|min:2',
             ]
         );
 
-        $ticket->update($request->only('subject', 'description', 'status'));
+        $ticket->update($request->only('status', 'amount_tickets'));
 
-        return Redirect::route('tickets.index')->with('success', 'Ticket atualizado com sucesso!');
+        return Redirect::route('tickets.show', ['user' => $ticket->user->id])
+        ->with('success', 'Ticket atualizado com sucesso!');
     }
 
     public function destroy(TicketModel $ticket)
