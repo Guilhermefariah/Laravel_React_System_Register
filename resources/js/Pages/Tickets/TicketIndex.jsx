@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import Chatbot from "@/Components/ChatBot/ChatBot";
 import { Link, Head } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
@@ -67,7 +66,6 @@ export default function TicketIndex({ user }) {
                     </div>
                 </motion.div>
             </div>
-            <Chatbot />
         </AuthenticatedLayout>
     );
 }
