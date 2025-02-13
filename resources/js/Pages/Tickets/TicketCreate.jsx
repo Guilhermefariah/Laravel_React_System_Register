@@ -77,7 +77,7 @@ export default function TicketCreate() {
                                 ))}
                             </select>
                             {errors.email && (
-                                <p className="text-red-500 text-sm">
+                                <p className="text-red-600 text-sm">
                                     {errors.email}
                                 </p>
                             )}
@@ -119,7 +119,7 @@ export default function TicketCreate() {
                             </label>
 
                             {errors.status && (
-                                <p className="text-red-500 text-sm">
+                                <p className="text-red-600 text-sm">
                                     {errors.status}
                                 </p>
                             )}
@@ -174,7 +174,7 @@ export default function TicketCreate() {
                                 Resolvido
                             </label>
                             {errors.amount_tickets && (
-                                <p className="text-red-500 text-sm">
+                                <p className="text-red-600 text-sm">
                                     {errors.amount_tickets}
                                 </p>
                             )}
@@ -203,7 +203,7 @@ export default function TicketCreate() {
                                 required
                             />
                             {errors.subject && (
-                                <p className="text-red-500 text-sm">
+                                <p className="text-red-600 text-sm">
                                     {errors.subject}
                                 </p>
                             )}
@@ -232,7 +232,7 @@ export default function TicketCreate() {
                                 required
                             />
                             {errors.description && (
-                                <p className="text-red-500 text-sm">
+                                <p className="text-red-600 text-sm">
                                     {errors.description}
                                 </p>
                             )}
@@ -247,7 +247,7 @@ export default function TicketCreate() {
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                                    className="bg-blue-600 text-white px-4 py-2 rounded-md "
                                 >
                                     Criar Ticket
                                 </button>
