@@ -66,7 +66,7 @@ export default function TicketEdit({ ticket, flash }) {
                                     onChange={(e) =>
                                         setData("amount_tickets", e.target.value)
                                     }
-                                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
                                 />
                             </div>
 
@@ -84,7 +84,7 @@ export default function TicketEdit({ ticket, flash }) {
                                     onChange={(e) =>
                                         setData("status", e.target.value)
                                     }
-                                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
                                 />
                             </div>
                         </div>
