@@ -71,8 +71,8 @@ export default function TicketShow({ user, auth, tickets, flash }) {
                                             </td>
                                             <td
                                                 className={`px-8 py-3 text-sm font-semibold ${ticket.status === "Ativo"
-                                                    ? "text-green-500"
-                                                    : "text-red-500"
+                                                    ? "text-green-600"
+                                                    : "text-red-600"
                                                     }`}
                                             >
                                                 {ticket.status}
